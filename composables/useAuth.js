@@ -6,32 +6,31 @@ export const useAuth = () => {
   const config = useRuntimeConfig();
 
   const login = async (email, password) => {
-    const { data, error } = await useFetch("/auth/login", {
+    const data = await $fetch("/auth/login", {
       baseURL: config.public.apiBase,
       method: "POST",
       body: { email, password },
     });
-    if (error.value) throw error.value;
-    token.value = data.value?.token;
+    token.value = data?.token;
     await fetchUser();
   };
 
-  const register = async (email, password) => {
-    const { data, error } = await useFetch("/auth/register", {
+  const register = async (email, password, phoneNumber) => {
+    const data = await $fetch("/auth/register", {
       baseURL: config.public.apiBase,
       method: "POST",
-      body: { email, password },
+      body: { email, password, phoneNumber },
     });
-    if (error.value) throw error.value;
+    return data;
   };
 
   const fetchUser = async () => {
     if (!token.value) return;
-    const { data } = await useFetch("/users/me", {
+    const data = await $fetch("/users/me", {
       baseURL: config.public.apiBase,
       headers: { Authorization: `Bearer ${token.value}` },
     });
-    user.value = data.value;
+    user.value = data;
   };
 
   const logout = () => {
