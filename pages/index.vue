@@ -17,7 +17,7 @@
     <section class="categories">
       <h2>Выбирайте по категориям</h2>
       <div class="category-list">
-        <div class="category" style="background-image: url('/images/b32345a36bb37e6ec908e4797f06cc609a8027ad\ \(2\).jpg')">
+        <div class="category" style="background-image: url('/images/accessories.jpg')">
           <span>Аксессуары</span>
         </div>
         <div class="category" style="background-image: url('/images/clothes.jpg')">
@@ -26,7 +26,7 @@
         <div class="category" style="background-image: url('/images/furniture.jpg')">
           <span>Мебель</span>
         </div>
-        <div class="category" style="background-image: url('/images/more.jpg')">
+        <div class="category" style="background-image: url('/images/')">
           <span>Ещё...</span>
         </div>
       </div>
@@ -46,16 +46,18 @@
 }
 
 .navbar {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
-  padding: 20px 40px;
+  padding: 20px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 10;
+  background-color: rgba(11, 23, 48, 0.8);
 }
 .menu-btn {
+  margin-left: 60px;
   background: none;
   border: none;
   color: white;
@@ -63,6 +65,7 @@
   cursor: pointer;
 }
 .login-btn {
+  margin-right: 60px;
   color: white;
   text-decoration: none;
   font-size: 14px;
@@ -83,6 +86,7 @@
   align-items: flex-end;
   text-align: right;
   padding: 40px;
+  padding-top: 100px;
 }
 .overlay {
   position: absolute;
