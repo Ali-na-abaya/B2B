@@ -17,19 +17,13 @@
     <section class="categories">
       <h2>Выбирайте по категориям</h2>
       <div class="category-list">
-        <div class="category" style="background-image: url('')">
+        <div class="category" style="background-image: url('/images/b32345a36bb37e6ec908e4797f06cc609a8027ad\ \(2\).jpg')">
           <span>Аксессуары</span>
         </div>
-        <div
-          class="category"
-          style="background-image: url('/images/clothes.jpg')"
-        >
+        <div class="category" style="background-image: url('/images/clothes.jpg')">
           <span>Одежда</span>
         </div>
-        <div
-          class="category"
-          style="background-image: url('/images/furniture.jpg')"
-        >
+        <div class="category" style="background-image: url('/images/furniture.jpg')">
           <span>Мебель</span>
         </div>
         <div class="category" style="background-image: url('/images/more.jpg')">
@@ -79,7 +73,7 @@
 
 .hero {
   position: relative;
-  background-image: url("../images/julie-NyrsRivAW0Q-unsplash.jpg");
+  background-image: url("/images/julie-NyrsRivAW0Q-unsplash.jpg");
   background-size: cover;
   background-position: center;
   min-height: 90vh;
