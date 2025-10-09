@@ -20,10 +20,16 @@
         <div class="category" style="background-image: url('')">
           <span>Аксессуары</span>
         </div>
-        <div class="category" style="background-image: url('/images/clothes.jpg')">
+        <div
+          class="category"
+          style="background-image: url('/images/clothes.jpg')"
+        >
           <span>Одежда</span>
         </div>
-        <div class="category" style="background-image: url('/images/furniture.jpg')">
+        <div
+          class="category"
+          style="background-image: url('/images/furniture.jpg')"
+        >
           <span>Мебель</span>
         </div>
         <div class="category" style="background-image: url('/images/more.jpg')">
@@ -34,8 +40,7 @@
   </div>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
 <style scoped>
 .page {
@@ -70,13 +75,11 @@
   border: 1px solid white;
   padding: 6px 12px;
   border-radius: 4px;
-  margin-left: ;
 }
-
 
 .hero {
   position: relative;
-  background-image: url('../images/julie-NyrsRivAW0Q-unsplash.jpg');
+  background-image: url("../images/julie-NyrsRivAW0Q-unsplash.jpg");
   background-size: cover;
   background-position: center;
   min-height: 90vh;
@@ -90,7 +93,7 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 .hero-content {
   position: relative;
