@@ -2,7 +2,7 @@
   <div class="page">
     <header class="navbar">
       <button class="menu-btn">☰</button>
-      <a href="#" class="login-btn">Log in / Sign in</a>
+      <a href="./login.vue" class="login-btn">Log in / Sign in</a>
     </header>
 
     <section class="hero">
@@ -17,16 +17,16 @@
     <section class="categories">
       <h2>Выбирайте по категориям</h2>
       <div class="category-list">
-        <div class="category" style="background-image: url('/images/accessories.jpg')">
-          <span>Аксессуары</span>
+        <div class="category">
+          <span>Мода и красота</span>
         </div>
-        <div class="category" style="background-image: url('/images/clothes.jpg')">
-          <span>Одежда</span>
+        <div class="cloth category">
+          <span>Для дома</span>
         </div>
-        <div class="category" style="background-image: url('/images/furniture.jpg')">
-          <span>Мебель</span>
+        <div class="furnit category" style="background-image: url('/images/furniture.jpg')">
+          <span>Еда</span>
         </div>
-        <div class="category" style="background-image: url('/images/')">
+        <div class="more category" style="background-image: url('/images/julie-NyrsRivAW0Q-unsplash.jpg')">
           <span>Ещё...</span>
         </div>
       </div>
@@ -140,6 +140,7 @@
 }
 .category {
   width: 90%;
+  background-image: url('/images/accessories.jpg');
   max-width: 700px;
   height: 60px;
   border-radius: 30px;
@@ -150,6 +151,15 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
+}
+.cloth{
+  background-image: url('/images/clothes.jpg');
+}
+.furnit{
+  background-image: url('/images/furniture.jpg');
+}
+.more{
+ background-image: url('/images/more.jpg');
 }
 .category::after {
   content: "";
