@@ -5,13 +5,6 @@
       <form @submit.prevent="handleRegister" class="space-y-4">
         <input
           v-model="name"
-          type="text"
-          placeholder="Full Name"
-          class="w-full border p-3 rounded"
-          required
-        />
-        <input
-          v-model="email"
           type="email"
           placeholder="Email"
           class="w-full border p-3 rounded"
@@ -21,6 +14,13 @@
           v-model="password"
           type="password"
           placeholder="Password"
+          class="w-full border p-3 rounded"
+          required
+        />
+        <input
+          v-model="phone"
+          type="phone"
+          placeholder="Phone number"
           class="w-full border p-3 rounded"
           required
         />
@@ -43,14 +43,14 @@
 import { useAuth } from "~/composables/useAuth";
 const { register } = useAuth();
 
-const name = ref("");
 const email = ref("");
 const password = ref("");
+const phone = ref("");
 
 const handleRegister = async () => {
   try {
-    await register(name.value, email.value, password.value);
-    navigateTo("/dashboard");
+    await register(email.value, password.value, phone.value);
+    navigateTo("/login");
   } catch (err) {
     console.error(err);
   }
