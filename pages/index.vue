@@ -79,7 +79,7 @@
   background-image: url("/images/julie-NyrsRivAW0Q-unsplash.jpg");
   background-size: cover;
   background-position: center;
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
