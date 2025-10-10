@@ -36,18 +36,19 @@
           <span>Ещё...</span>
         </div>
 
-        <template v-if="showMore">
-          <div
-            v-for="(cat, index) in extraCategories"
-            :key="index"
-            class="category extra-category"
-          >
-            <span>{{ cat }}</span>
-          </div>
-          <div class="category hide-btn" @click="showMore = false" style="cursor: pointer">
-            <span>Скрыть</span>
-          </div>
-        </template>
+     <template v-if="showMore">
+  <div
+    v-for="(cat, index) in extraCategories"
+    :key="index"
+    class="category extra-category"
+    :style="{ backgroundImage: `url(${cat.image})` }"
+  >
+    <span>{{ cat.name }}</span>
+  </div>
+  <div class="category hide-btn" @click="showMore = false" style="cursor: pointer">
+    <span>Скрыть</span>
+  </div>
+</template>
       </div>
     </section>
   </div>
@@ -59,11 +60,26 @@ import { ref } from 'vue'
 const showMore = ref(false)
 
 const extraCategories = [
-  'Компьютеры, телефония, канцтовары',
-  'Детские товары, развлечения, хобби',
-  'Автозапчасти, техника',
-  'Медицинские товары',
-  'Промышленность, строительство'
+  {
+    name: 'Компьютеры, телефония, канцтовары',
+    image: '/images/good.jpeg'
+  },
+  {
+    name: 'Детские товары, развлечения, хобби',
+    image: '/images/toys.jpeg'
+  },
+  {
+    name: 'Автозапчасти, техника',
+    image: '/images/teh.jpeg'
+  },
+  {
+    name: 'Медицинские товары',
+    image: '/images/medi.jpeg'
+  },
+  {
+    name: 'Промышленность, строительство',
+    image: '/images/str.jpeg'
+  }
 ]
 </script>
 
@@ -173,7 +189,7 @@ const extraCategories = [
 .category {
   width: 90%;
   background-image: url('/images/accessories.jpg');
-  max-width: 700px;
+  max-width: 1200px;
   height: 60px;
   border-radius: 30px;
   background-size: cover;
@@ -185,16 +201,13 @@ const extraCategories = [
   overflow: hidden;
 }
 .cloth {
-  background-image: url('/images/clothes.jpg');
+  background-image: url('/images/for-hme.jpeg');
 }
 .furnit {
-  background-image: url('/images/furniture.jpg');
+  background-image: url('/images/food.jpeg');
 }
 .more {
-  background-image: url('/images/more.jpg');
-}
-.extra-category {
-  background-image: url('/images/accessories.jpg');
+  background-image: url('/public/images/furniture.jpg');
 }
 .hide-btn {
   background-image: url('/images/more.jpg');
