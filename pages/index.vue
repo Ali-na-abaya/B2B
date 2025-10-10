@@ -2,7 +2,7 @@
   <div class="page">
     <header class="navbar">
       <button class="menu-btn">☰</button>
-      <a href="./login.vue" class="login-btn">Log in / Sign in</a>
+   <NuxtLink to="/login" class="login-btn">Log in / Sign in</NuxtLink>
     </header>
 
     <section class="hero">
@@ -177,5 +177,15 @@
 .category:hover {
   transform: scale(1.03);
   transition: 0.3s ease;
+}
+.login-btn {
+  margin-right: 60px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  border: 1px solid white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-block; 
 }
 </style>
