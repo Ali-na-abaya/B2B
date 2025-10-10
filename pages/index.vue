@@ -2,7 +2,7 @@
   <div class="page">
     <header class="navbar">
       <button class="menu-btn">☰</button>
-   <NuxtLink to="/login" class="login-btn">Log in / Sign in</NuxtLink>
+      <NuxtLink to="/login" class="login-btn">Log in / Sign in</NuxtLink>
     </header>
 
     <section class="hero">
@@ -23,18 +23,49 @@
         <div class="cloth category">
           <span>Для дома</span>
         </div>
-        <div class="furnit category" style="background-image: url('/images/furniture.jpg')">
+        <div class="furnit category">
           <span>Еда</span>
         </div>
-        <div class="more category" style="background-image: url('/images/julie-NyrsRivAW0Q-unsplash.jpg')">
+
+        <div
+          v-if="!showMore"
+          class="more category"
+          @click="showMore = true"
+          style="cursor: pointer"
+        >
           <span>Ещё...</span>
         </div>
+
+        <template v-if="showMore">
+          <div
+            v-for="(cat, index) in extraCategories"
+            :key="index"
+            class="category extra-category"
+          >
+            <span>{{ cat }}</span>
+          </div>
+          <div class="category hide-btn" @click="showMore = false" style="cursor: pointer">
+            <span>Скрыть</span>
+          </div>
+        </template>
       </div>
     </section>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+const showMore = ref(false)
+
+const extraCategories = [
+  'Электроника',
+  'Автозапчасти',
+  'Строительство',
+  'Сельское хозяйство',
+  'Услуги'
+]
+</script>
 
 <style scoped>
 .page {
@@ -72,6 +103,7 @@
   border: 1px solid white;
   padding: 6px 12px;
   border-radius: 4px;
+  display: inline-block;
 }
 
 .hero {
@@ -152,14 +184,20 @@
   position: relative;
   overflow: hidden;
 }
-.cloth{
+.cloth {
   background-image: url('/images/clothes.jpg');
 }
-.furnit{
+.furnit {
   background-image: url('/images/furniture.jpg');
 }
-.more{
- background-image: url('/images/more.jpg');
+.more {
+  background-image: url('/images/more.jpg');
+}
+.extra-category {
+  background-image: url('/images/accessories.jpg');
+}
+.hide-btn {
+  background-image: url('/images/more.jpg');
 }
 .category::after {
   content: "";
@@ -177,15 +215,5 @@
 .category:hover {
   transform: scale(1.03);
   transition: 0.3s ease;
-}
-.login-btn {
-  margin-right: 60px;
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  border: 1px solid white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  display: inline-block; 
 }
 </style>
