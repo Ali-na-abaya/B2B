@@ -44,9 +44,11 @@ const password = ref("");
 const handleLogin = async () => {
   try {
     await login(email.value, password.value);
-    navigateTo("/index");
+
+    navigateTo("/");
   } catch (err) {
     console.error(err);
+    alert(" Login failed!");
   }
 };
 </script>

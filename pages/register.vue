@@ -4,7 +4,7 @@
       <h1 class="text-2xl font-bold mb-6 text-center">Register</h1>
       <form @submit.prevent="handleRegister" class="space-y-4">
         <input
-          v-model="name"
+          v-model="email"
           type="email"
           placeholder="Email"
           class="w-full border p-3 rounded"
@@ -18,9 +18,9 @@
           required
         />
         <input
-          v-model="phone"
-          type="phone"
-          placeholder="Phone number"
+          v-model="phoneNumber"
+          type="tel"
+          placeholder="+77777777777"
           class="w-full border p-3 rounded"
           required
         />
@@ -45,14 +45,16 @@ const { register } = useAuth();
 
 const email = ref("");
 const password = ref("");
-const phone = ref("");
+const phoneNumber = ref("");
 
 const handleRegister = async () => {
   try {
-    await register(email.value, password.value, phone.value);
+    await register(email.value, password.value, phoneNumber.value);
+    alert("Registration successful!");
     navigateTo("/login");
   } catch (err) {
     console.error(err);
+    alert(" Registration failed!");
   }
 };
 </script>
