@@ -390,7 +390,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   right: 18px;
   font-size: 26px;
   font-weight: bold;
-  color: #222;
+  color: #ffffff;
   cursor: pointer;
   transition: transform 0.2s ease, color 0.2s ease;
 }
@@ -407,13 +407,15 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   align-items: center;
   justify-content: flex-start;
   padding: 16px 20px;
+
 }
 
 .burger-icon {
-  font-size: 28px;
+  font-size: 38px;
   cursor: pointer;
   user-select: none;
   transition: transform 0.3s ease;
+
 }
 
 .burger-icon:hover {
@@ -434,13 +436,14 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .menu-content {
-  background: white;
+  background-color: rgba(20, 33, 61, 1);
   width: 220px;
   height: 100%;
   box-shadow: 2px 0 8px rgba(0,0,0,0.2);
   padding: 40px 20px;
   position: relative;
   animation: slideIn 0.3s ease forwards;
+
 }
 
 .menu-content ul {
@@ -457,7 +460,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 .menu-content a {
   text-decoration: none;
   font-size: 18px;
-  color: #222;
+  color: #ffffff;
   transition: color 0.3s ease;
 }
 
@@ -540,7 +543,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .product-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(252, 163, 17, 1);
 }
 
 .product-img {
@@ -562,8 +565,8 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .search-input {
-  margin-left: 1150px;
-  width: 240px;
+  margin-left: 1000px;
+  width: 400px;
   padding: 8px 14px;
   border-radius: 9999px;
   border: 1px solid #ccc;
