@@ -283,7 +283,19 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { onMounted } from 'vue'
 
+onMounted(() => {
+  if (window.location.hash) {
+    const hash = window.location.hash.substring(1) 
+    const element = document.getElementById(hash)
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 100)
+    }
+  }
+})
 
 
 const menuOpen = ref(false)
@@ -297,7 +309,6 @@ const scrollToCategory = () => {
   const query = searchQuery.value.toLowerCase().trim()
   if (!query) return
 
-  // Категория аттарын іздеу
   const sections = document.querySelectorAll('.category-section')
   let found = false
 
@@ -368,6 +379,10 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 </script>
 
 <style scoped>
+.category-section {
+  padding: 100px 20px;
+  min-height: 80vh;
+}
 
 .close-icon {
   position: absolute;

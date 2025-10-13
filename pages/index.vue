@@ -17,15 +17,16 @@
     <section class="categories">
       <h2>Выбирайте по категориям</h2>
       <div class="category-list">
-        <div class="category">
-          <span>Мода и красота</span>
-        </div>
-        <div class="cloth category">
-          <span>Для дома</span>
-        </div>
-        <div class="furnit category">
+      <NuxtLink to="/catalog#fashion" class="category">
+  <span>Мода и красота</span>
+</NuxtLink>
+        <NuxtLink to="/catalog#home" class="cloth category">
+           <span>Для дома</span>
+        </NuxtLink>
+       
+      <NuxtLink to="/catalog#food" class="furnit category">
           <span>Еда, табачная и алкогольная продукция</span>
-        </div>
+      </NuxtLink>
 
         <div
           v-if="!showMore"
@@ -36,15 +37,17 @@
           <span>Ещё...</span>
         </div>
 
-     <template v-if="showMore">
-  <div
+  <template v-if="showMore">
+  <NuxtLink
     v-for="(cat, index) in extraCategories"
     :key="index"
+    :to="`/catalog#${cat.slug}`"
     class="category extra-category"
     :style="{ backgroundImage: `url(${cat.image})` }"
   >
     <span>{{ cat.name }}</span>
-  </div>
+  </NuxtLink>
+
   <div class="category hide-btn" @click="showMore = false" style="cursor: pointer">
     <span>Скрыть</span>
   </div>
@@ -62,23 +65,28 @@ const showMore = ref(false)
 const extraCategories = [
   {
     name: 'Компьютеры, телефония, канцтовары',
-    image: '/images/good.jpeg'
+    image: '/images/good.jpeg',
+     slug: 'computers' 
   },
   {
     name: 'Детские товары, развлечения, хобби',
-    image: '/images/toys.jpeg'
+    image: '/images/toys.jpeg',
+    slug: 'kids' 
   },
   {
     name: 'Автозапчасти, техника',
-    image: '/images/teh.jpeg'
+    image: '/images/teh.jpeg',
+    slug: 'auto' 
   },
   {
     name: 'Медицинские товары',
-    image: '/images/medi.jpeg'
+    image: '/images/medi.jpeg',
+    slug: 'medical' 
   },
   {
     name: 'Промышленность, строительство',
-    image: '/images/str.jpeg'
+    image: '/images/str.jpeg',
+    slug: 'industry' 
   }
 ]
 </script>
