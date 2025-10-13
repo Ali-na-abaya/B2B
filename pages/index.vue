@@ -2,7 +2,7 @@
   <div class="page">
     <header class="navbar">
       <button class="menu-btn">☰</button>
-   <NuxtLink to="/login" class="login-btn">Log in / Sign in</NuxtLink>
+      <NuxtLink to="/login" class="login-btn">Log in / Sign in</NuxtLink>
     </header>
 
     <section class="hero">
@@ -17,24 +17,79 @@
     <section class="categories">
       <h2>Выбирайте по категориям</h2>
       <div class="category-list">
-        <div class="category">
-          <span>Мода и красота</span>
-        </div>
-        <div class="cloth category">
-          <span>Для дома</span>
-        </div>
-        <div class="furnit category" style="background-image: url('/images/furniture.jpg')">
-          <span>Еда</span>
-        </div>
-        <div class="more category" style="background-image: url('/images/julie-NyrsRivAW0Q-unsplash.jpg')">
+      <NuxtLink to="/catalog#fashion" class="category">
+  <span>Мода и красота</span>
+</NuxtLink>
+        <NuxtLink to="/catalog#home" class="cloth category">
+           <span>Для дома</span>
+        </NuxtLink>
+       
+      <NuxtLink to="/catalog#food" class="furnit category">
+          <span>Еда, табачная и алкогольная продукция</span>
+      </NuxtLink>
+
+        <div
+          v-if="!showMore"
+          class="more category"
+          @click="showMore = true"
+          style="cursor: pointer"
+        >
           <span>Ещё...</span>
         </div>
+
+  <template v-if="showMore">
+  <NuxtLink
+    v-for="(cat, index) in extraCategories"
+    :key="index"
+    :to="`/catalog#${cat.slug}`"
+    class="category extra-category"
+    :style="{ backgroundImage: `url(${cat.image})` }"
+  >
+    <span>{{ cat.name }}</span>
+  </NuxtLink>
+
+  <div class="category hide-btn" @click="showMore = false" style="cursor: pointer">
+    <span>Скрыть</span>
+  </div>
+</template>
       </div>
     </section>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+const showMore = ref(false)
+
+const extraCategories = [
+  {
+    name: 'Компьютеры, телефония, канцтовары',
+    image: '/images/good.jpeg',
+     slug: 'computers' 
+  },
+  {
+    name: 'Детские товары, развлечения, хобби',
+    image: '/images/toys.jpeg',
+    slug: 'kids' 
+  },
+  {
+    name: 'Автозапчасти, техника',
+    image: '/images/teh.jpeg',
+    slug: 'auto' 
+  },
+  {
+    name: 'Медицинские товары',
+    image: '/images/medi.jpeg',
+    slug: 'medical' 
+  },
+  {
+    name: 'Промышленность, строительство',
+    image: '/images/str.jpeg',
+    slug: 'industry' 
+  }
+]
+</script>
 
 <style scoped>
 .page {
@@ -72,6 +127,7 @@
   border: 1px solid white;
   padding: 6px 12px;
   border-radius: 4px;
+  display: inline-block;
 }
 
 .hero {
@@ -141,7 +197,7 @@
 .category {
   width: 90%;
   background-image: url('/images/accessories.jpg');
-  max-width: 700px;
+  max-width: 1200px;
   height: 60px;
   border-radius: 30px;
   background-size: cover;
@@ -152,14 +208,17 @@
   position: relative;
   overflow: hidden;
 }
-.cloth{
-  background-image: url('/images/clothes.jpg');
+.cloth {
+  background-image: url('/images/for-hme.jpeg');
 }
-.furnit{
-  background-image: url('/images/furniture.jpg');
+.furnit {
+  background-image: url('/images/food.jpeg');
 }
-.more{
- background-image: url('/images/more.jpg');
+.more {
+  background-image: url('/public/images/furniture.jpg');
+}
+.hide-btn {
+  background-image: url('/images/more.jpg');
 }
 .category::after {
   content: "";
@@ -177,15 +236,5 @@
 .category:hover {
   transform: scale(1.03);
   transition: 0.3s ease;
-}
-.login-btn {
-  margin-right: 60px;
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  border: 1px solid white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  display: inline-block; 
 }
 </style>

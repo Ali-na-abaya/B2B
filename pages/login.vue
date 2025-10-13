@@ -1,34 +1,51 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="bg-white p-8 rounded-2xl shadow-lg w-96">
-      <h1 class="text-2xl font-bold mb-6 text-center">Login</h1>
-      <form @submit.prevent="handleLogin" class="space-y-4">
+  <div
+    class="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#14213D] to-[#000000]"
+  >
+    <div
+      class="bg-[#fca311] rounded-3xl shadow-2xl w-96 p-8 relative overflow-hidden"
+    >
+      <div
+        class="absolute -top-16 -left-16 w-40 h-40 bg-[#14213D] rounded-full opacity-30"
+      ></div>
+
+      <h1 class="text-3xl font-bold text-center text-[#14213D] mb-8">
+        Login to Continue
+      </h1>
+
+      <form @submit.prevent="handleLogin" class="space-y-5 relative z-10">
         <input
           v-model="email"
           type="email"
           placeholder="Email"
-          class="w-full border p-3 rounded"
+          class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#14213D] transition"
           required
         />
+
         <input
           v-model="password"
           type="password"
           placeholder="Password"
-          class="w-full border p-3 rounded"
+          class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#14213D] transition"
           required
         />
+
         <button
           type="submit"
-          class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
+          class="w-full bg-[#14213D] text-white py-3 rounded-xl mt-6 hover:bg-black transition font-semibold"
         >
           Login
         </button>
       </form>
-      <p class="text-center mt-4">
+
+      <p class="text-center text-[#14213D] mt-6 font-medium">
         Don’t have an account?
-        <NuxtLink to="/register" class="text-blue-600 font-medium"
-          >Register</NuxtLink
+        <NuxtLink
+          to="/register"
+          class="text-white decoration-[#14213D] hover:text-black transition"
         >
+          Register
+        </NuxtLink>
       </p>
     </div>
   </div>
@@ -44,11 +61,10 @@ const password = ref("");
 const handleLogin = async () => {
   try {
     await login(email.value, password.value);
-
     navigateTo("/");
   } catch (err) {
     console.error(err);
-    alert(" Login failed!");
+    alert("Login failed!");
   }
 };
 </script>
