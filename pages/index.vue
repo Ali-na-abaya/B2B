@@ -1,7 +1,43 @@
 <template>
   <div class="page">
     <header class="navbar">
-      <button class="menu-btn">☰</button>
+     <div class="burger-container">
+      <div class="burger-icon" @click="toggleMenu">
+        ☰
+      </div>
+      <transition name="slide">
+        <div v-if="menuOpen" class="menu-overlay" @click.self="toggleMenu">
+          <div class="menu-content">
+            
+            <div class="close-icon" @click="toggleMenu">✕</div>
+
+          <ul>
+  <li>
+    <NuxtLink to="/">
+      <i class="fa-solid fa-house"></i> Home
+    </NuxtLink>
+  </li>
+  <li>
+    <NuxtLink to="/catalog">
+      <i class="fa-solid fa-bag-shopping"></i> Catalog
+    </NuxtLink>
+  </li>
+  <li>
+    <NuxtLink to="/suppliers">
+      <i class="fa-solid fa-industry"></i> Suppliers
+    </NuxtLink>
+  </li>
+  <li>
+    <NuxtLink to="/profile">
+      <i class="fa-solid fa-user"></i> Profile
+    </NuxtLink>
+  </li>
+</ul>
+
+          </div>
+        </div>
+      </transition>
+    </div>
       <NuxtLink to="/login" class="login-btn">Log in / Sign in</NuxtLink>
     </header>
 
@@ -62,6 +98,12 @@ import { ref } from 'vue'
 
 const showMore = ref(false)
 
+
+const menuOpen = ref(false)
+const toggleMenu = () => {
+  menuOpen.value = !menuOpen.value
+}
+
 const extraCategories = [
   {
     name: 'Компьютеры, телефония, канцтовары',
@@ -111,16 +153,8 @@ const extraCategories = [
   z-index: 10;
   background-color: rgba(11, 23, 48, 0.8);
 }
-.menu-btn {
-  margin-left: 60px;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-}
 .login-btn {
-  margin-right: 60px;
+  margin-right: 50px;
   color: white;
   text-decoration: none;
   font-size: 14px;
@@ -129,6 +163,17 @@ const extraCategories = [
   border-radius: 4px;
   display: inline-block;
 }
+.login-btn:hover {
+  margin-right: 50px;
+  color: #FCA311;
+  text-decoration: none;
+  font-size: 14px;
+  border: 1px solid white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
 
 .hero {
   position: relative;
@@ -180,13 +225,14 @@ const extraCategories = [
 }
 .categories {
   background-color: #0b1730;
-  text-align: center;
+  text-align: start;
   padding: 40px 20px;
 }
 .categories h2 {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 500;
   margin-bottom: 30px;
+text-align: center;
 }
 .category-list {
   display: flex;
@@ -229,12 +275,139 @@ const extraCategories = [
 .category span {
   position: relative;
   z-index: 1;
-  color: white;
   font-weight: 500;
   font-size: 16px;
+
 }
 .category:hover {
   transform: scale(1.03);
   transition: 0.3s ease;
+}
+.category-section {
+  padding: 100px 20px;
+  min-height: 80vh;
+}
+
+.close-icon {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 13px;
+  color: white;
+  cursor: pointer;
+  padding: 4px 10px;
+    border: 1px solid white;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.close-icon:hover {
+  transform: scale(1.2);
+  color: #FCA311;
+}
+
+
+.burger-container {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 16px 20px;
+  cursor: pointer;
+}
+
+.burger-icon {
+    margin-left: 35px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  font-size: 28px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.burger-icon:hover {
+  transform: scale(1.1);
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.5);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: flex-start;
+  z-index: 200;
+}
+
+.menu-content {
+    background-color: #0b1730;
+  width: 300px;
+  height: 100%;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+  padding: 40px 20px;
+  position: relative;
+  animation: slideIn 0.3s ease forwards;
+}
+
+.menu-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 130px;
+}
+
+.menu-content li {
+  margin-bottom: 20px;
+}
+
+.menu-content a {
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  transition: color 0.3s ease;
+}
+.menu-content a {
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.menu-content a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px; 
+  width: 0%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.menu-content a:hover::after {
+  width: 100%;
+}
+
+.menu-content a:hover {
+  color: #FCA311;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.slide-enter-active, .slide-leave-active {
+  transition: opacity 0.3s ease;
+}
+.slide-enter-from, .slide-leave-to {
+  opacity: 0;
 }
 </style>
