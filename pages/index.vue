@@ -90,6 +90,11 @@
 </template>
       </div>
     </section>
+
+
+    <section class="arrivals">
+
+    </section>
   </div>
 </template>
 
@@ -232,7 +237,7 @@ const extraCategories = [
   font-size: 30px;
   font-weight: 500;
   margin-bottom: 30px;
-text-align: center;
+margin-left: 120px;
 }
 .category-list {
   display: flex;
