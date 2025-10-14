@@ -2,59 +2,47 @@
 <template>
     
   <div class="catalog-page">
-
-    <div class="burger-container">
-       <div class="burger-container">
-      <div class="burger-icon" @click="toggleMenu">
+     <div class="burger-container">
+        <div class="burger-icon" @click="toggleMenu">
         ☰
-      </div>
+        </div>
       <transition name="slide">
         <div v-if="menuOpen" class="menu-overlay" @click.self="toggleMenu">
           <div class="menu-content">
-            
             <div class="close-icon" @click="toggleMenu">✕</div>
-
-          <ul>
-  <li>
-    <NuxtLink to="/">
-      <i class="fa-solid fa-house"></i> Home
-    </NuxtLink>
-  </li>
-  <li>
-    <NuxtLink to="/catalog">
-      <i class="fa-solid fa-bag-shopping"></i> Catalog
-    </NuxtLink>
-  </li>
-  <li>
-    <NuxtLink to="/suppliers">
-      <i class="fa-solid fa-industry"></i> Suppliers
-    </NuxtLink>
-  </li>
-  <li>
-    <NuxtLink to="/profile">
-      <i class="fa-solid fa-user"></i> Profile
-    </NuxtLink>
-  </li>
-</ul>
-
+             <ul>
+                  <li>
+                    <NuxtLink to="/">
+                      <i class="fa-solid fa-house"></i> Home
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink to="/catalog">
+                      <i class="fa-solid fa-bag-shopping"></i> Catalog
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink to="/suppliers">
+                      <i class="fa-solid fa-industry"></i> Suppliers
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink to="/profile">
+                      <i class="fa-solid fa-user"></i> Profile
+                    </NuxtLink>
+                  </li>
+             </ul>
           </div>
         </div>
       </transition>
-    </div>
-
-<input
-  type="text"
-  v-model="searchQuery"
-  placeholder="Поиск категории..."
-  class="search-input"
-  @keyup.enter="scrollToCategory"
-/>
-
-
-   
-    </div>
-    
-
+         <input
+         type="text"
+         v-model="searchQuery"
+         placeholder="Поиск категории..."
+         class="search-input"
+         @keyup.enter="scrollToCategory"
+       />
+     </div>
 
     <section id="fashion" class="category-section">
       <h1 class="category-title">Мода и красота</h1>
@@ -439,7 +427,6 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .burger-icon {
-
   background: none;
   border: none;
   color: rgb(0, 0, 0);
@@ -454,8 +441,6 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 .burger-icon:hover {
   transform: scale(1.1);
 }
-
-
 
 .menu-overlay {
   position: fixed;
@@ -577,7 +562,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .filter-btn.active {
-  background: #1e3a8a;
+  background:rgba(20, 33, 61, 1);
   color: white;
 }
 

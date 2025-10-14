@@ -142,7 +142,7 @@ const extraCategories = [
 .page {
   font-family: "Poppins", sans-serif;
   color: white;
-  background-color: #0b1730;
+  background-color: rgba(20, 33, 61, 1);
   margin: 0;
   padding: 0;
 }
