@@ -1,9 +1,12 @@
-import { useCookie, useRuntimeConfig } from "#imports";
+import { useCookie, useRuntimeConfig, useRouter } from "#imports";
+import { jwtDecode } from "jwt-decode";
 
 export const useAuth = () => {
   const token = useCookie("token", { maxAge: 60 * 60 * 24 * 7 });
+  const refresh = useCookie("refresh", { maxAge: 60 * 60 * 24 * 30 });
   const user = ref(null);
   const config = useRuntimeConfig();
+  const router = useRouter();
 
   const login = async (email, password) => {
     const data = await $fetch("/auth/login", {
@@ -11,8 +14,20 @@ export const useAuth = () => {
       method: "POST",
       body: { email, password },
     });
-    token.value = data?.token;
-    await fetchUser();
+
+    console.log("LOGIN RESPONSE:", data);
+
+    token.value = data?.accessToken;
+    refresh.value = data?.refreshToken;
+
+    const decoded = jwtDecode(data?.accessToken);
+    user.value = decoded;
+
+    if (decoded.role === "admin") {
+      router.push("/admin");
+    } else {
+      router.push("/");
+    }
   };
 
   const register = async (email, password, phoneNumber) => {
@@ -26,16 +41,15 @@ export const useAuth = () => {
 
   const fetchUser = async () => {
     if (!token.value) return;
-    const data = await $fetch("/users/me", {
-      baseURL: config.public.apiBase,
-      headers: { Authorization: `Bearer ${token.value}` },
-    });
-    user.value = data;
+    const decoded = jwtDecode(token.value);
+    user.value = decoded;
   };
 
   const logout = () => {
     token.value = null;
+    refresh.value = null;
     user.value = null;
+    router.push("/login");
   };
 
   const isAdmin = computed(() => user.value?.role === "admin");

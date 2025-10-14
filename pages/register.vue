@@ -5,7 +5,6 @@
     <div
       class="bg-[#fca311] rounded-3xl shadow-2xl w-96 p-8 relative overflow-hidden"
     >
-      <!-- Decorative circle -->
       <div
         class="absolute -top-16 -right-16 w-40 h-40 bg-[#14213D] rounded-full opacity-20"
       ></div>
@@ -47,6 +46,10 @@
         </button>
       </form>
 
+      <p v-if="errorMessage" class="text-red-600 text-center mt-4">
+        {{ errorMessage }}
+      </p>
+
       <p class="text-center text-[#14213D] mt-6 font-medium">
         Already have an account?
         <NuxtLink
@@ -62,20 +65,34 @@
 
 <script setup>
 import { useAuth } from "~/composables/useAuth";
+import { navigateTo } from "#app";
+
 const { register } = useAuth();
 
 const email = ref("");
 const password = ref("");
 const phoneNumber = ref("");
+const errorMessage = ref("");
 
 const handleRegister = async () => {
+  errorMessage.value = "";
+
+  if (!email.value || !password.value || !phoneNumber.value) {
+    errorMessage.value = "Please fill in all fields.";
+    return;
+  }
+
   try {
-    await register(email.value, password.value, phoneNumber.value);
+    const data = await register(email.value, password.value, phoneNumber.value);
+    console.log("✅ REGISTER SUCCESS:", data);
     alert("Registration successful!");
     navigateTo("/login");
   } catch (err) {
-    console.error(err);
-    alert("Registration failed!");
+    console.error(" REGISTER ERROR:", err);
+    errorMessage.value =
+      err?.data?.message ||
+      err?.message ||
+      "Registration failed. Please try again.";
   }
 };
 </script>
