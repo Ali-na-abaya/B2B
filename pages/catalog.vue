@@ -321,7 +321,7 @@ const scrollToCategory = () => {
   })
 
   if (!found) {
-    alert('Категория не найдена 😕')
+    alert('Категория не найдена ')
   }
 
   searchQuery.value = ''
