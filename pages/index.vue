@@ -327,7 +327,7 @@ margin-left: 120px;
   color: white;
   font-size: 24px;
   cursor: pointer;
-  font-size: 28px;
+  font-size: 35px;
   cursor: pointer;
   user-select: none;
   transition: transform 0.3s ease;

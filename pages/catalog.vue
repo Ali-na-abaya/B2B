@@ -4,9 +4,43 @@
   <div class="catalog-page">
 
     <div class="burger-container">
+       <div class="burger-container">
       <div class="burger-icon" @click="toggleMenu">
         ☰
       </div>
+      <transition name="slide">
+        <div v-if="menuOpen" class="menu-overlay" @click.self="toggleMenu">
+          <div class="menu-content">
+            
+            <div class="close-icon" @click="toggleMenu">✕</div>
+
+          <ul>
+  <li>
+    <NuxtLink to="/">
+      <i class="fa-solid fa-house"></i> Home
+    </NuxtLink>
+  </li>
+  <li>
+    <NuxtLink to="/catalog">
+      <i class="fa-solid fa-bag-shopping"></i> Catalog
+    </NuxtLink>
+  </li>
+  <li>
+    <NuxtLink to="/suppliers">
+      <i class="fa-solid fa-industry"></i> Suppliers
+    </NuxtLink>
+  </li>
+  <li>
+    <NuxtLink to="/profile">
+      <i class="fa-solid fa-user"></i> Profile
+    </NuxtLink>
+  </li>
+</ul>
+
+          </div>
+        </div>
+      </transition>
+    </div>
 
 <input
   type="text"
@@ -17,21 +51,7 @@
 />
 
 
-      <transition name="slide">
-        <div v-if="menuOpen" class="menu-overlay" @click.self="toggleMenu">
-          <div class="menu-content">
-            
-            <div class="close-icon" @click="toggleMenu">✕</div>
-
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/catalog">Catalog</a></li>
-              <li><a href="/suppliers">Suppliers</a></li>
-              <li><a href="/profile">Profile</a></li>
-            </ul>
-          </div>
-        </div>
-      </transition>
+   
     </div>
     
 
@@ -278,6 +298,12 @@
       </div>
     </section>
 
+
+    <footer>
+      <div class="footer">
+        © 2025 Suppliers. All rights reserved.
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -384,19 +410,21 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   min-height: 80vh;
 }
 
+
 .close-icon {
   position: absolute;
   top: 18px;
   right: 18px;
-  font-size: 26px;
-  font-weight: bold;
-  color: #ffffff;
+  font-size: 13px;
+  color: white;
   cursor: pointer;
+  padding: 4px 10px;
+    border: 1px solid white;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 .close-icon:hover {
   transform: scale(1.2);
-  color: #0056b3;
+  color: #FCA311;
 }
 
 
@@ -407,20 +435,27 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   align-items: center;
   justify-content: flex-start;
   padding: 16px 20px;
-
+  cursor: pointer;
 }
 
 .burger-icon {
-  font-size: 38px;
+
+  background: none;
+  border: none;
+  color: rgb(0, 0, 0);
+  font-size: 24px;
+  cursor: pointer;
+  font-size: 35px;
   cursor: pointer;
   user-select: none;
   transition: transform 0.3s ease;
-
 }
 
 .burger-icon:hover {
   transform: scale(1.1);
 }
+
+
 
 .menu-overlay {
   position: fixed;
@@ -436,21 +471,20 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .menu-content {
-  background-color: rgba(20, 33, 61, 1);
-  width: 220px;
+    background-color: #0b1730;
+  width: 300px;
   height: 100%;
   box-shadow: 2px 0 8px rgba(0,0,0,0.2);
   padding: 40px 20px;
   position: relative;
   animation: slideIn 0.3s ease forwards;
-
 }
 
 .menu-content ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  margin-top: 30px;
+  margin-top: 130px;
 }
 
 .menu-content li {
@@ -459,13 +493,35 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 
 .menu-content a {
   text-decoration: none;
-  font-size: 18px;
-  color: #ffffff;
+  font-size: 16px;
+  color: white;
   transition: color 0.3s ease;
+}
+.menu-content a {
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.menu-content a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px; 
+  width: 0%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.menu-content a:hover::after {
+  width: 100%;
 }
 
 .menu-content a:hover {
-  color: #0056b3;
+  color: #FCA311;
 }
 
 @keyframes slideIn {
@@ -479,8 +535,6 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 .slide-enter-from, .slide-leave-to {
   opacity: 0;
 }
-
-
 
 .catalog-page {
   min-height: 100vh;
@@ -580,7 +634,13 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.2);
 }
 
-
+.footer{
+  background-color: rgba(19, 33, 60, 1);
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  padding: 30px;
+}
 @media (max-width: 768px) {
 
   .burger-container {
@@ -630,7 +690,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
     font-size: 13px;
   }
 
-  /* Product grid mobile */
+
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
