@@ -68,9 +68,22 @@
         No suppliers found.
       </p>
     </div>
-
-
   </div>
+     <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <span class="logo">SupplierHub</span>
+      </div>
+      <div class="footer-center">
+        <span class="copyright">© SupplierHub, All rights reserved</span>
+      </div>
+      <div class="footer-right">
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script setup>
@@ -302,6 +315,72 @@ tr:nth-child(even) {
 }
 
 
+
+.footer {
+  background-color: #0b1730; 
+  padding: 2rem 1rem;
+  position: relative;
+}
+
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+ 
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-left .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f8f8f8;
+  letter-spacing: 0.5px;
+}
+
+.footer-center .copyright {
+  font-size: 0.9rem;
+  color: #f8f8f8;
+  text-align: center;
+}
+
+.footer-right {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(248, 248, 248, 0.1);
+  color: #f8f8f8;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: rgba(248, 248, 248, 0.2);
+  transform: scale(1.1);
+}
+
+
+
+
 @media (max-width: 768px) {
   .text_p {
     font-size: 26px;
@@ -330,10 +409,41 @@ tr:nth-child(even) {
   .menu-content {
     width: 260px;
   }
+
+   .footer-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+    padding: 0 1rem;
+  }
+  
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .footer-left .logo {
+    font-size: 1.2rem;
+  }
+  
+  .footer-center .copyright {
+    font-size: 0.8rem;
+  }
+  
+  .social-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
 }
 
 
 @media (max-width: 480px) {
+  .dot{
+    display: none;
+  }
   .burger-container {
     padding: 12px 10px;
     display: flex;
@@ -412,9 +522,6 @@ tr:nth-child(even) {
   .menu-content {
     width: 240px;
     padding: 30px 16px;
-  }
-    .dot{
-    display: none;
   }
 }
 

@@ -386,9 +386,9 @@ margin-left: 120px;
   background-color: rgba(11, 23, 48, 0.55);
 }
 .category span {
-  position: relative;
-  z-index: 1;
-  font-size: 16px;
+position: relative;
+z-index: 1;
+font-size: 16px;
 margin-left:50px ;
 background-color:#0b1730;
 padding: 5px 15px;
