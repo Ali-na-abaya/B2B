@@ -1,48 +1,44 @@
-
 <template>
-    
   <div class="catalog-page">
-     <div class="burger-container">
-        <div class="burger-icon" @click="toggleMenu">
-        ☰
-        </div>
+    <div class="burger-container">
+      <div class="burger-icon" @click="toggleMenu">☰</div>
       <transition name="slide">
         <div v-if="menuOpen" class="menu-overlay" @click.self="toggleMenu">
           <div class="menu-content">
             <div class="close-icon" @click="toggleMenu">✕</div>
-             <ul>
-                  <li>
-                    <NuxtLink to="/">
-                      <i class="fa-solid fa-house"></i> Home
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink to="/catalog">
-                      <i class="fa-solid fa-bag-shopping"></i> Catalog
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink to="/suppliers">
-                      <i class="fa-solid fa-industry"></i> Suppliers
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink to="/profile">
-                      <i class="fa-solid fa-user"></i> Profile
-                    </NuxtLink>
-                  </li>
-             </ul>
+            <ul>
+              <li>
+                <NuxtLink to="/">
+                  <i class="fa-solid fa-house"></i> Home
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/catalog">
+                  <i class="fa-solid fa-bag-shopping"></i> Catalog
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/suppliers">
+                  <i class="fa-solid fa-industry"></i> Suppliers
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/profile">
+                  <i class="fa-solid fa-user"></i> Profile
+                </NuxtLink>
+              </li>
+            </ul>
           </div>
         </div>
       </transition>
-         <input
-         type="text"
-         v-model="searchQuery"
-         placeholder="Поиск категории..."
-         class="search-input"
-         @keyup.enter="scrollToCategory"
-       />
-     </div>
+      <input
+        type="text"
+        v-model="searchQuery"
+        placeholder="Поиск категории..."
+        class="search-input"
+        @keyup.enter="scrollToCategory"
+      />
+    </div>
 
     <section id="fashion" class="category-section">
       <h1 class="category-title">Мода и красота</h1>
@@ -70,7 +66,6 @@
       </div>
     </section>
 
-
     <section id="home" class="category-section">
       <h1 class="category-title">Для дома</h1>
       <div class="filter-buttons">
@@ -85,18 +80,13 @@
         </button>
       </div>
       <div class="products-grid">
-        <div
-          v-for="item in filteredHome"
-          :key="item.id"
-          class="product-card"
-        >
+        <div v-for="item in filteredHome" :key="item.id" class="product-card">
           <img :src="item.image" class="product-img" />
           <h3 class="product-name">{{ item.name }}</h3>
           <p class="product-price">price: {{ item.price }}</p>
         </div>
       </div>
     </section>
-
 
     <section id="food" class="category-section">
       <h1 class="category-title">Еда, табачная и алкогольная продукция</h1>
@@ -112,18 +102,13 @@
         </button>
       </div>
       <div class="products-grid">
-        <div
-          v-for="item in filteredFood"
-          :key="item.id"
-          class="product-card"
-        >
+        <div v-for="item in filteredFood" :key="item.id" class="product-card">
           <img :src="item.image" class="product-img" />
           <h3 class="product-name">{{ item.name }}</h3>
           <p class="product-price">price: {{ item.price }}</p>
         </div>
       </div>
     </section>
-
 
     <section id="computers" class="category-section">
       <h1 class="category-title">Компьютеры, телефония, канцтовары</h1>
@@ -139,18 +124,13 @@
         </button>
       </div>
       <div class="products-grid">
-        <div
-          v-for="item in filteredComp"
-          :key="item.id"
-          class="product-card"
-        >
+        <div v-for="item in filteredComp" :key="item.id" class="product-card">
           <img :src="item.image" class="product-img" />
           <h3 class="product-name">{{ item.name }}</h3>
           <p class="product-price">price: {{ item.price }}</p>
         </div>
       </div>
     </section>
-
 
     <section id="industry" class="category-section">
       <h1 class="category-title">Промышленность, строительство</h1>
@@ -178,7 +158,6 @@
       </div>
     </section>
 
-
     <section id="kids" class="category-section">
       <h1 class="category-title">Детские товары, развлечения, хобби</h1>
       <div class="filter-buttons">
@@ -193,18 +172,13 @@
         </button>
       </div>
       <div class="products-grid">
-        <div
-          v-for="item in filteredKids"
-          :key="item.id"
-          class="product-card"
-        >
+        <div v-for="item in filteredKids" :key="item.id" class="product-card">
           <img :src="item.image" class="product-img" />
           <h3 class="product-name">{{ item.name }}</h3>
           <p class="product-price">price: {{ item.price }}</p>
         </div>
       </div>
     </section>
-
 
     <section id="medical" class="category-section">
       <h1 class="category-title">Медицинские товары</h1>
@@ -220,18 +194,13 @@
         </button>
       </div>
       <div class="products-grid">
-        <div
-          v-for="item in filteredMed"
-          :key="item.id"
-          class="product-card"
-        >
+        <div v-for="item in filteredMed" :key="item.id" class="product-card">
           <img :src="item.image" class="product-img" />
           <h3 class="product-name">{{ item.name }}</h3>
           <p class="product-price">price: {{ item.price }}</p>
         </div>
       </div>
     </section>
-
 
     <section id="auto" class="category-section">
       <h1 class="category-title">Автозапчасти, техника</h1>
@@ -247,18 +216,13 @@
         </button>
       </div>
       <div class="products-grid">
-        <div
-          v-for="item in filteredAuto"
-          :key="item.id"
-          class="product-card"
-        >
+        <div v-for="item in filteredAuto" :key="item.id" class="product-card">
           <img :src="item.image" class="product-img" />
           <h3 class="product-name">{{ item.name }}</h3>
           <p class="product-price">price: {{ item.price }}</p>
         </div>
       </div>
     </section>
-
 
     <section id="other" class="category-section">
       <h1 class="category-title">Прочее</h1>
@@ -274,11 +238,7 @@
         </button>
       </div>
       <div class="products-grid">
-        <div
-          v-for="item in filteredOther"
-          :key="item.id"
-          class="product-card"
-        >
+        <div v-for="item in filteredOther" :key="item.id" class="product-card">
           <img :src="item.image" class="product-img" />
           <h3 class="product-name">{{ item.name }}</h3>
           <p class="product-price">price: {{ item.price }}</p>
@@ -286,110 +246,222 @@
       </div>
     </section>
 
+    <footer>
+      <div class="footer">© 2025 Suppliers. All rights reserved.</div>
+    </footer>
 
     <footer>
-      <div class="footer">
-        © 2025 Suppliers. All rights reserved.
-      </div>
+      <div class="footer">© 2025 Suppliers. All rights reserved.</div>
     </footer>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { onMounted } from 'vue'
+import { ref, computed } from "vue";
+import { onMounted } from "vue";
 
 onMounted(() => {
   if (window.location.hash) {
-    const hash = window.location.hash.substring(1) 
-    const element = document.getElementById(hash)
+    const hash = window.location.hash.substring(1);
+    const element = document.getElementById(hash);
     if (element) {
       setTimeout(() => {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }, 100)
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
     }
   }
-})
+});
 
-
-const menuOpen = ref(false)
+const menuOpen = ref(false);
 const toggleMenu = () => {
-  menuOpen.value = !menuOpen.value
-}
+  menuOpen.value = !menuOpen.value;
+};
 
-const searchQuery = ref('')
+const searchQuery = ref("");
 
 const scrollToCategory = () => {
-  const query = searchQuery.value.toLowerCase().trim()
-  if (!query) return
+  const query = searchQuery.value.toLowerCase().trim();
+  if (!query) return;
 
-  const sections = document.querySelectorAll('.category-section')
-  let found = false
+  const sections = document.querySelectorAll(".category-section");
+  let found = false;
 
-  sections.forEach(sec => {
-    const title = sec.querySelector('.category-title').textContent.toLowerCase()
+  sections.forEach((sec) => {
+    const title = sec
+      .querySelector(".category-title")
+      .textContent.toLowerCase();
     if (title.includes(query)) {
-      sec.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      found = true
+      sec.scrollIntoView({ behavior: "smooth", block: "start" });
+      found = true;
     }
-  })
+  });
 
   if (!found) {
-    alert('Категория не найдена ')
+    alert("Категория не найдена ");
+    alert("Категория не найдена ");
   }
 
-  searchQuery.value = ''
-}
+  searchQuery.value = "";
+};
 
+const fashionFilters = [
+  "Все",
+  "Аксессуары",
+  "Головные уборы",
+  "Косметика и средства по уходу за телом",
+  "Обувь",
+  "Одежда",
+  "Ювелирные украшения и изделия",
+];
+const homeFilters = [
+  "Все",
+  "Бытовая техника",
+  "Бытовая химия, хозтовары",
+  "Мебель",
+  "Посуда, предметы интерьера",
+  "Сувениры",
+  "Текстиль",
+];
+const foodFilters = [
+  "Все",
+  "Овощи и фрукты",
+  "Продукты питания",
+  "Табачная и алкогольная продукция",
+];
+const compFilters = [
+  "Все",
+  "Канцелярские товары",
+  "Компьютеры и оргтехника",
+  "Телефония и средства связи",
+];
+const industryFilters = [
+  "Все",
+  "Мебельная фурнитура",
+  "Оборудование для бизнеса",
+  "Окна, двери, витражи",
+  "Пиломатериалы",
+  "Плитка, мрамор, гранит",
+  "Промышленное оборудование, сырьё",
+  "Сантехника и комплектующие",
+  "Средства охраны и пожаротушения",
+  "Стройматериалы и оборудование",
+  "Ткани и швейная фурнитура",
+  "Топливо",
+  "Электрика",
+];
+const kidsFilters = [
+  "Все",
+  "Музыкальные инструменты, оборудование",
+  "Отдых, туризм, спорт",
+  "Товары для детей",
+];
+const medFilters = ["Все", "Оптика", "Товары медицинского назначения"];
+const autoFilters = ["Все", "Автозапчасти"];
+const otherFilters = [
+  "Все",
+  "Растения",
+  "Тара и упаковка",
+  "Товары для животных",
+];
 
-
-const fashionFilters = ['Все', 'Аксессуары', 'Головные уборы', 'Косметика и средства по уходу за телом', 'Обувь', 'Одежда', 'Ювелирные украшения и изделия']
-const homeFilters = ['Все', 'Бытовая техника', 'Бытовая химия, хозтовары', 'Мебель', 'Посуда, предметы интерьера', 'Сувениры', 'Текстиль']
-const foodFilters = ['Все', 'Овощи и фрукты', 'Продукты питания', 'Табачная и алкогольная продукция']
-const compFilters = ['Все', 'Канцелярские товары', 'Компьютеры и оргтехника', 'Телефония и средства связи']
-const industryFilters = ['Все', 'Мебельная фурнитура', 'Оборудование для бизнеса', 'Окна, двери, витражи', 'Пиломатериалы', 'Плитка, мрамор, гранит', 'Промышленное оборудование, сырьё', 'Сантехника и комплектующие', 'Средства охраны и пожаротушения', 'Стройматериалы и оборудование', 'Ткани и швейная фурнитура', 'Топливо', 'Электрика']
-const kidsFilters = ['Все', 'Музыкальные инструменты, оборудование', 'Отдых, туризм, спорт', 'Товары для детей']
-const medFilters = ['Все', 'Оптика', 'Товары медицинского назначения']
-const autoFilters = ['Все', 'Автозапчасти']
-const otherFilters = ['Все', 'Растения', 'Тара и упаковка', 'Товары для животных']
-
-const activeFashion = ref('Все')
-const activeHome = ref('Все')
-const activeFood = ref('Все')
-const activeComp = ref('Все')
-const activeIndustry = ref('Все')
-const activeKids = ref('Все')
-const activeMed = ref('Все')
-const activeAuto = ref('Все')
-const activeOther = ref('Все')
+const activeFashion = ref("Все");
+const activeHome = ref("Все");
+const activeFood = ref("Все");
+const activeComp = ref("Все");
+const activeIndustry = ref("Все");
+const activeKids = ref("Все");
+const activeMed = ref("Все");
+const activeAuto = ref("Все");
+const activeOther = ref("Все");
 
 const sample = (category) => [
-  { id: 1, name: `${category} 1`, price: '$50', image: '/images/accessories.jpg', category },
-  { id: 2, name: `${category} 2`, price: '$70', image: '/images/clothes.jpg', category },
-  { id: 3, name: `${category} 3`, price: '$90', image: '/images/furniture.jpg', category },
-  { id: 4, name: `${category} 3`, price: '$90', image: '/images/more.jpg', category }
-]
+  {
+    id: 1,
+    name: `${category} 1`,
+    price: "$50",
+    image: "/images/accessories.jpg",
+    category,
+  },
+  {
+    id: 2,
+    name: `${category} 2`,
+    price: "$70",
+    image: "/images/clothes.jpg",
+    category,
+  },
+  {
+    id: 3,
+    name: `${category} 3`,
+    price: "$90",
+    image: "/images/furniture.jpg",
+    category,
+  },
+  {
+    id: 4,
+    name: `${category} 3`,
+    price: "$90",
+    image: "/images/more.jpg",
+    category,
+  },
+];
 
-const makeProducts = (filters) => filters.filter(f => f !== 'Все').flatMap(sample)
-const fashionProducts = makeProducts(fashionFilters)
-const homeProducts = makeProducts(homeFilters)
-const foodProducts = makeProducts(foodFilters)
-const compProducts = makeProducts(compFilters)
-const industryProducts = makeProducts(industryFilters)
-const kidsProducts = makeProducts(kidsFilters)
-const medProducts = makeProducts(medFilters)
-const autoProducts = makeProducts(autoFilters)
-const otherProducts = makeProducts(otherFilters)
+const makeProducts = (filters) =>
+  filters.filter((f) => f !== "Все").flatMap(sample);
+const fashionProducts = makeProducts(fashionFilters);
+const homeProducts = makeProducts(homeFilters);
+const foodProducts = makeProducts(foodFilters);
+const compProducts = makeProducts(compFilters);
+const industryProducts = makeProducts(industryFilters);
+const kidsProducts = makeProducts(kidsFilters);
+const medProducts = makeProducts(medFilters);
+const autoProducts = makeProducts(autoFilters);
+const otherProducts = makeProducts(otherFilters);
 
-const filteredFashion = computed(() => activeFashion.value === 'Все' ? fashionProducts : fashionProducts.filter(p => p.category === activeFashion.value))
-const filteredHome = computed(() => activeHome.value === 'Все' ? homeProducts : homeProducts.filter(p => p.category === activeHome.value))
-const filteredFood = computed(() => activeFood.value === 'Все' ? foodProducts : foodProducts.filter(p => p.category === activeFood.value))
-const filteredComp = computed(() => activeComp.value === 'Все' ? compProducts : compProducts.filter(p => p.category === activeComp.value))
-const filteredIndustry = computed(() => activeIndustry.value === 'Все' ? industryProducts : industryProducts.filter(p => p.category === activeIndustry.value))
-const filteredKids = computed(() => activeKids.value === 'Все' ? kidsProducts : kidsProducts.filter(p => p.category === activeKids.value))
-const filteredMed = computed(() => activeMed.value === 'Все' ? medProducts : medProducts.filter(p => p.category === activeMed.value))
-const filteredAuto = computed(() => activeAuto.value === 'Все' ? autoProducts : autoProducts.filter(p => p.category === activeAuto.value))
-const filteredOther = computed(() => activeOther.value === 'Все' ? otherProducts : otherProducts.filter(p => p.category === activeOther.value))
+const filteredFashion = computed(() =>
+  activeFashion.value === "Все"
+    ? fashionProducts
+    : fashionProducts.filter((p) => p.category === activeFashion.value)
+);
+const filteredHome = computed(() =>
+  activeHome.value === "Все"
+    ? homeProducts
+    : homeProducts.filter((p) => p.category === activeHome.value)
+);
+const filteredFood = computed(() =>
+  activeFood.value === "Все"
+    ? foodProducts
+    : foodProducts.filter((p) => p.category === activeFood.value)
+);
+const filteredComp = computed(() =>
+  activeComp.value === "Все"
+    ? compProducts
+    : compProducts.filter((p) => p.category === activeComp.value)
+);
+const filteredIndustry = computed(() =>
+  activeIndustry.value === "Все"
+    ? industryProducts
+    : industryProducts.filter((p) => p.category === activeIndustry.value)
+);
+const filteredKids = computed(() =>
+  activeKids.value === "Все"
+    ? kidsProducts
+    : kidsProducts.filter((p) => p.category === activeKids.value)
+);
+const filteredMed = computed(() =>
+  activeMed.value === "Все"
+    ? medProducts
+    : medProducts.filter((p) => p.category === activeMed.value)
+);
+const filteredAuto = computed(() =>
+  activeAuto.value === "Все"
+    ? autoProducts
+    : autoProducts.filter((p) => p.category === activeAuto.value)
+);
+const filteredOther = computed(() =>
+  activeOther.value === "Все"
+    ? otherProducts
+    : otherProducts.filter((p) => p.category === activeOther.value)
+);
 </script>
 
 <style scoped>
@@ -398,23 +470,26 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   min-height: 80vh;
 }
 
-
 .close-icon {
   position: absolute;
   top: 18px;
   right: 18px;
   font-size: 13px;
   color: white;
+  font-size: 13px;
+  color: white;
   cursor: pointer;
   padding: 4px 10px;
-    border: 1px solid white;
+  border: 1px solid white;
+  padding: 4px 10px;
+  border: 1px solid white;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 .close-icon:hover {
   transform: scale(1.2);
-  color: #FCA311;
+  color: #fca311;
+  color: #fca311;
 }
-
 
 .burger-container {
   position: relative;
@@ -423,6 +498,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   align-items: center;
   justify-content: flex-start;
   padding: 16px 20px;
+  cursor: pointer;
   cursor: pointer;
 }
 
@@ -456,10 +532,12 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .menu-content {
-    background-color: #0b1730;
+  background-color: #0b1730;
+  width: 300px;
+  background-color: #0b1730;
   width: 300px;
   height: 100%;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
   padding: 40px 20px;
   position: relative;
   animation: slideIn 0.3s ease forwards;
@@ -470,6 +548,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   padding: 0;
   margin: 0;
   margin-top: 130px;
+  margin-top: 130px;
 }
 
 .menu-content li {
@@ -478,6 +557,8 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 
 .menu-content a {
   text-decoration: none;
+  font-size: 16px;
+  color: white;
   font-size: 16px;
   color: white;
   transition: color 0.3s ease;
@@ -494,7 +575,29 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   content: "";
   position: absolute;
   left: 0;
-  bottom: -3px; 
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.menu-content a:hover::after {
+  width: 100%;
+}
+.menu-content a {
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.menu-content a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
   width: 0%;
   height: 2px;
   background-color: #ffffff;
@@ -506,18 +609,25 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .menu-content a:hover {
-  color: #FCA311;
+  color: #fca311;
+  color: #fca311;
 }
 
 @keyframes slideIn {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
-.slide-enter-active, .slide-leave-active {
+.slide-enter-active,
+.slide-leave-active {
   transition: opacity 0.3s ease;
 }
-.slide-enter-from, .slide-leave-to {
+.slide-enter-from,
+.slide-leave-to {
   opacity: 0;
 }
 
@@ -562,7 +672,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .filter-btn.active {
-  background:rgba(20, 33, 61, 1);
+  background: rgba(20, 33, 61, 1);
   color: white;
 }
 
@@ -577,11 +687,12 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   border-radius: 16px;
   padding: 16px;
   text-align: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.3s;
 }
 
 .product-card:hover {
+  box-shadow: 0 4px 12px rgba(252, 163, 17, 1);
   box-shadow: 0 4px 12px rgba(252, 163, 17, 1);
 }
 
@@ -606,6 +717,8 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 .search-input {
   margin-left: 1000px;
   width: 400px;
+  margin-left: 1000px;
+  width: 400px;
   padding: 8px 14px;
   border-radius: 9999px;
   border: 1px solid #ccc;
@@ -619,7 +732,14 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.2);
 }
 
-.footer{
+.footer {
+  background-color: rgba(19, 33, 60, 1);
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  padding: 30px;
+}
+.footer {
   background-color: rgba(19, 33, 60, 1);
   width: 100%;
   color: #ffffff;
@@ -627,7 +747,6 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   padding: 30px;
 }
 @media (max-width: 768px) {
-
   .burger-container {
     justify-content: space-between;
     padding: 12px 16px;
@@ -637,14 +756,12 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
     font-size: 26px;
   }
 
-
   .search-input {
     margin-left: 0;
     width: 160px;
     font-size: 14px;
     padding: 6px 10px;
   }
-
 
   .menu-content {
     width: 180px;
@@ -654,7 +771,6 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   .menu-content a {
     font-size: 16px;
   }
-
 
   .category-section {
     padding: 16px;
@@ -674,7 +790,6 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
     padding: 6px 14px;
     font-size: 13px;
   }
-
 
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -698,7 +813,6 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
     font-size: 12px;
   }
 }
-
 
 @media (max-width: 480px) {
   .burger-container {
@@ -724,5 +838,4 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
     font-size: 18px;
   }
 }
-
 </style>
