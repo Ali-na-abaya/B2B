@@ -430,7 +430,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 
   background: none;
   border: none;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   font-size: 24px;
   cursor: pointer;
   font-size: 35px;
@@ -526,7 +526,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 
 .catalog-page {
   min-height: 100vh;
-  background: #f9fafb;
+  background:rgba(19, 33, 60, 1);
   font-family: Arial, sans-serif;
 }
 
@@ -539,7 +539,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 24px;
-  color: #111827;
+  color: #ffffff;
 }
 
 .filter-buttons {
@@ -561,11 +561,11 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .filter-btn:hover {
-  background: #c7d2fe;
+  background: rgb(192, 191, 191);
 }
 
 .filter-btn.active {
-  background: #1e3a8a;
+  background: rgba(252, 163, 17, 1);
   color: white;
 }
 
