@@ -1091,5 +1091,45 @@ gap: 35px;
   }
 }
 
+@media (max-width: 768px) {
+
+  .burger-container {
+    justify-content: space-between;
+    padding: 12px 16px;
+  }
+
+  .burger-icon {
+    font-size: 26px;
+    margin-left: 15px;
+  }
+  .menu-content {
+    width: 180px;
+    padding: 30px 16px;
+  }
+
+  .menu-content a {
+    font-size: 16px;
+  }
+.login-btn {
+  margin-right: 30px;
+  color: white;
+  text-decoration: none;
+  font-size: 11px;
+  border: 1px solid white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.login-btn:hover {
+  margin-right: 50px;
+  color: #FCA311;
+  text-decoration: none;
+  font-size: 14px;
+  border: 1px solid white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+}
 
 </style>
