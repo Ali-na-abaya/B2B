@@ -40,7 +40,7 @@
          v-model="searchQuery"
          placeholder="Поиск категории..."
          class="search-input"
-         @keyup.enter="scrollToCategory"
+        @keyup.enter="scrollToCategory"
        />
      </div>
 
@@ -427,6 +427,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .burger-icon {
+
   background: none;
   border: none;
   color: rgb(0, 0, 0);
@@ -441,6 +442,8 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 .burger-icon:hover {
   transform: scale(1.1);
 }
+
+
 
 .menu-overlay {
   position: fixed;
@@ -562,7 +565,7 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .filter-btn.active {
-  background:rgba(20, 33, 61, 1);
+  background: #1e3a8a;
   color: white;
 }
 
@@ -604,8 +607,8 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
 }
 
 .search-input {
-  margin-left: 1000px;
-  width: 400px;
+  margin-left: auto;
+   width: 300px;
   padding: 8px 14px;
   border-radius: 9999px;
   border: 1px solid #ccc;
