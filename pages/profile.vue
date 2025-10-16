@@ -3,9 +3,43 @@
 
     <div class="profile-header">
       <h1 class="page-title">Profile</h1>
-      <button class="menu-toggle" aria-label="Open menu">
+   <div class="burger-container">
+      <div class="burger-icon" @click="toggleMenu">
         ☰
-      </button>
+      </div>
+      <transition name="slide">
+        <div v-if="menuOpen" class="menu-overlay" @click.self="toggleMenu">
+          <div class="menu-content">
+            
+            <div class="close-icon" @click="toggleMenu">✕</div>
+
+          <ul>
+  <li>
+    <NuxtLink to="/">
+      <i class="fa-solid fa-house"></i> Home
+    </NuxtLink>
+  </li>
+  <li>
+    <NuxtLink to="/catalog">
+      <i class="fa-solid fa-bag-shopping"></i> Catalog
+    </NuxtLink>
+  </li>
+  <li>
+    <NuxtLink to="/suppliers">
+      <i class="fa-solid fa-industry"></i> Suppliers
+    </NuxtLink>
+  </li>
+  <li>
+    <NuxtLink to="/profile">
+      <i class="fa-solid fa-user"></i> Profile
+    </NuxtLink>
+  </li>
+</ul>
+
+          </div>
+        </div>
+      </transition>
+    </div>
     </div>
 
    
@@ -40,27 +74,33 @@
         </div>
       </div>
 
+    
+    </div>
       <div class="card company-card">
         <h3 class="card-title">About company</h3>
         <p><strong>Company name:</strong> Adilet</p>
         <p><strong>Specification:</strong> Toys</p>
         <p><strong>Product:</strong> Balls, dolls, cars</p>
       </div>
-    </div>
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
+
+
+
+const menuOpen = ref(false)
+const toggleMenu = () => {
+  menuOpen.value = !menuOpen.value
+}
 </script>
 
 <style scoped>
-body{
-  background-color: #FCA311;
-}
+
 .profile-container {
-  
-  background-color: #FCA311;
-  padding: 20px;
+  background-color: #ffffff;
+  padding: 0px 40px;
   max-width: 1800px;
   margin: 0 auto;
 }
@@ -69,7 +109,7 @@ body{
   background-color: #1a2238;
   color: white;
   padding: 20px 30px;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 50px 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -81,17 +121,9 @@ body{
   margin: 0;
 }
 
-.menu-toggle {
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 1.8rem;
-  cursor: pointer;
-}
-
 .content-wrapper {
   display: flex;
-  flex-direction: column;
+justify-content: space-around;
   gap: 30px;
 }
 
@@ -99,14 +131,34 @@ body{
   background-color: #1a2238;
   color: white;
   padding: 30px;
-  border-radius: 20px;
+  border-radius: 40px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.payment-card {
+  background-color: #1a2238;
+  color: white;
+  padding: 30px;
+  border-radius: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 350px;
+    height: 300px;
+}
+.payment-card {
+  background-color: #1a2238;
+  color: white;
+  padding: 30px;
+  border-radius: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 350px;
+    height: 300px;
+}
 .user-info-card {
   display: flex;
   align-items: center;
   gap: 20px;
+  width: 750px;
+  height: 300px;
 }
 
 .avatar {
@@ -185,6 +237,143 @@ body{
   opacity: 0.9;
 }
 
+.close-icon {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 13px;
+  color: white;
+  cursor: pointer;
+  padding: 4px 10px;
+    border: 1px solid white;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.close-icon:hover {
+  transform: scale(1.2);
+  color: #FCA311;
+}
+
+
+.burger-container {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 16px 20px;
+  cursor: pointer;
+}
+
+.burger-icon {
+
+  background: none;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-size: 24px;
+  cursor: pointer;
+  font-size: 35px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.burger-icon:hover {
+  transform: scale(1.1);
+}
+.company-card{
+  background-color: #1a2238;
+  color: white;
+  padding: 30px;
+  justify-content: center;
+  border-radius: 40px;
+  margin-left: 65px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 750px;
+    height: 300px;
+    margin-top: 40px;
+}
+
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.5);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: flex-start;
+  z-index: 200;
+}
+
+.menu-content {
+    background-color: #0b1730;
+  width: 300px;
+  height: 100%;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+  padding: 40px 20px;
+  position: relative;
+  animation: slideIn 0.3s ease forwards;
+}
+
+.menu-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 130px;
+}
+
+.menu-content li {
+  margin-bottom: 20px;
+}
+
+.menu-content a {
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  transition: color 0.3s ease;
+}
+.menu-content a {
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.menu-content a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px; 
+  width: 0%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.menu-content a:hover::after {
+  width: 100%;
+}
+
+.menu-content a:hover {
+  color: #FCA311;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.slide-enter-active, .slide-leave-active {
+  transition: opacity 0.3s ease;
+}
+.slide-enter-from, .slide-leave-to {
+  opacity: 0;
+}
+
+
 
 @media (max-width: 768px) {
   .profile-header {
@@ -211,6 +400,24 @@ body{
 
   .payment-methods {
     grid-template-columns: 1fr;
+  }
+
+  .burger-container {
+    justify-content: space-between;
+    padding: 12px 16px;
+  }
+
+  .burger-icon {
+    font-size: 26px;
+  }
+
+  .menu-content {
+    width: 180px;
+    padding: 30px 16px;
+  }
+
+  .menu-content a {
+    font-size: 16px;
   }
 }
 </style>
