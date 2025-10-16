@@ -83,6 +83,21 @@
         <p><strong>Product:</strong> Balls, dolls, cars</p>
       </div>
   </div>
+    <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <span class="logo">SupplierHub</span>
+      </div>
+      <div class="footer-center">
+        <span class="copyright">© SupplierHub, All rights reserved</span>
+      </div>
+      <div class="footer-right">
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script setup>
@@ -106,7 +121,7 @@ const toggleMenu = () => {
 }
 
 .profile-header {
-  background-color: #1a2238;
+  background-color: #0b1730;
   color: white;
   padding: 20px 30px;
   border-radius: 0 0 50px 50px;
@@ -128,7 +143,7 @@ justify-content: space-around;
 }
 
 .card {
-  background-color: #1a2238;
+  background-color: #0b1730;
   color: white;
   padding: 30px;
   border-radius: 40px;
@@ -136,7 +151,7 @@ justify-content: space-around;
 }
 
 .payment-card {
-  background-color: #1a2238;
+  background-color: #0b1730;
   color: white;
   padding: 30px;
   border-radius: 40px;
@@ -145,7 +160,7 @@ justify-content: space-around;
     height: 300px;
 }
 .payment-card {
-  background-color: #1a2238;
+  background-color: #0b1730;
   color: white;
   padding: 30px;
   border-radius: 40px;
@@ -281,7 +296,7 @@ justify-content: space-around;
   transform: scale(1.1);
 }
 .company-card{
-  background-color: #1a2238;
+  background-color: #0b1730;
   color: white;
   padding: 30px;
   justify-content: center;
@@ -374,6 +389,68 @@ justify-content: space-around;
 }
 
 
+.footer {
+  background-color: #0b1730; 
+  padding: 2rem 1rem;
+  position: relative;
+  margin-top: 40px;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+ 
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-left .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f8f8f8;
+  letter-spacing: 0.5px;
+}
+
+.footer-center .copyright {
+  font-size: 0.9rem;
+  color: #f8f8f8;
+  text-align: center;
+}
+
+.footer-right {
+  display: flex;
+  gap: 1rem;
+}
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(248, 248, 248, 0.1);
+  color: #f8f8f8;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: rgba(248, 248, 248, 0.2);
+  transform: scale(1.1);
+}
+
+
+
 
 @media (max-width: 768px) {
   .profile-header {
@@ -418,6 +495,27 @@ justify-content: space-around;
 
   .menu-content a {
     font-size: 16px;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .footer-left .logo {
+    font-size: 1.2rem;
+  }
+  
+  .footer-center .copyright {
+    font-size: 0.8rem;
+  }
+  
+  .social-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
   }
 }
 </style>
