@@ -67,7 +67,7 @@
 import { useAuth } from "~/composables/useAuth";
 import { navigateTo } from "#app";
 
-const { register } = useAuth();
+const { register, login, fetchUser } = useAuth();
 
 const email = ref("");
 const password = ref("");
@@ -83,16 +83,27 @@ const handleRegister = async () => {
   }
 
   try {
-    const data = await register(email.value, password.value, phoneNumber.value);
-    console.log("✅ REGISTER SUCCESS:", data);
-    alert("Registration successful!");
-    navigateTo("/login");
+    const result = await register(
+      email.value,
+      password.value,
+      phoneNumber.value
+    );
+
+    if (result?.token) {
+      const { token } = result;
+      const auth = useAuth();
+      auth.token.value = token;
+      // await fetchUser();
+      // navigateTo("/login");
+      return;
+    }
+
+    // await login(email.value, password.value);
+    // await fetchUser();
+    // navigateTo("/login");
   } catch (err) {
-    console.error(" REGISTER ERROR:", err);
-    errorMessage.value =
-      err?.data?.message ||
-      err?.message ||
-      "Registration failed. Please try again.";
+    console.error("Registration failed:", err);
+    alert("Registration failed!");
   }
 };
 </script>
