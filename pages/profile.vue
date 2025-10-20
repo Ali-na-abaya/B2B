@@ -143,6 +143,7 @@ justify-content: space-around;
 }
 
 .card {
+  display: flex;
   background-color: #0b1730;
   color: white;
   padding: 30px;
@@ -472,6 +473,7 @@ justify-content: space-around;
   }
 
   .card {
+    flex-direction: column;
     padding: 20px;
   }
 
@@ -496,7 +498,16 @@ justify-content: space-around;
   .menu-content a {
     font-size: 16px;
   }
+}
 
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+    padding: 0 1rem;
+  }
+  
   .footer-left,
   .footer-center,
   .footer-right {
@@ -517,5 +528,102 @@ justify-content: space-around;
     height: 35px;
     font-size: 1rem;
   }
+  
+@media (max-width: 768px) {
+  .user-info-card {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+.content-wrapper {
+  flex-direction: column;
+justify-content: space-around;
+  gap: 30px;
+}
+  .avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .user-name {
+    font-size: 1.4rem;
+  }
+
+  .payment-card {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .card {
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 25px;
+  }
+
+  .payment-methods {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .user-info-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .user-name {
+    font-size: 1.2rem;
+  }
+
+  .user-email,
+  .user-phone {
+    font-size: 0.85rem;
+  }
+
+  .payment-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .payment-methods {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .payment-logo {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+.company-card{
+  background-color: #0b1730;
+  color: white;
+  padding: 30px;
+  justify-content: center;
+  border-radius: 40px;
+  margin-left: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 350px;
+    height: 300px;
+    margin-top: 40px;
+}
+
+
 }
 </style>
