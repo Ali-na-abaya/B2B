@@ -143,7 +143,6 @@ justify-content: space-around;
 }
 
 .card {
-  display: flex;
   background-color: #0b1730;
   color: white;
   padding: 30px;
