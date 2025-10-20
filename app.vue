@@ -5,5 +5,16 @@
 </template>
 
 <script setup>
-// Root Nuxt app
+import { onMounted } from "vue";
+import { useAuth } from "~/composables/useAuth";
+
+const { token, fetchUser } = useAuth();
+
+// onMounted(() => {
+//   if (token.value) {
+//     fetchUser().catch((err) => {
+//       console.warn("Не удалось подтянуть пользователя:", err);
+//     });
+//   }
+// });
 </script>

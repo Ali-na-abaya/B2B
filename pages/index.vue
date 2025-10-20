@@ -1,44 +1,92 @@
 <template>
   <div class="page">
     <header class="navbar">
-     <div class="burger-container">
-      <div class="burger-icon" @click="toggleMenu">
-        ☰
-      </div>
-      <transition name="slide">
-        <div v-if="menuOpen" class="menu-overlay" @click.self="toggleMenu">
-          <div class="menu-content">
-            
-            <div class="close-icon" @click="toggleMenu">✕</div>
+      <div class="burger-container">
+        <div class="burger-icon" @click="toggleMenu">☰</div>
+        <transition name="slide">
+          <div v-if="menuOpen" class="menu-overlay" @click.self="toggleMenu">
+            <div class="menu-content">
+              <div class="close-icon" @click="toggleMenu">✕</div>
 
-          <ul>
-  <li>
-    <NuxtLink to="/">
-      <i class="fa-solid fa-house"></i> Home
-    </NuxtLink>
-  </li>
-  <li>
-    <NuxtLink to="/catalog">
-      <i class="fa-solid fa-bag-shopping"></i> Catalog
-    </NuxtLink>
-  </li>
-  <li>
-    <NuxtLink to="/suppliers">
-      <i class="fa-solid fa-industry"></i> Suppliers
-    </NuxtLink>
-  </li>
-  <li>
-    <NuxtLink to="/profile">
-      <i class="fa-solid fa-user"></i> Profile
-    </NuxtLink>
-  </li>
-</ul>
+              <ul>
+                <li>
+                  <NuxtLink to="/">
+                    <i class="fa-solid fa-house"></i> Home
+                  </NuxtLink>
+                </li>
 
+                <li>
+                  <NuxtLink to="/catalog">
+                    <i class="fa-solid fa-bag-shopping"></i> Catalog
+                  </NuxtLink>
+                </li>
+
+                <li>
+                  <NuxtLink to="/suppliers">
+                    <i class="fa-solid fa-industry"></i> Suppliers
+                  </NuxtLink>
+                </li>
+
+                <li v-if="isAdmin">
+                  <NuxtLink to="/admin">
+                    <i class="fa-solid fa-lock"></i> Admin Panel
+                  </NuxtLink>
+                </li>
+
+                <li v-if="isAuthenticated">
+                  <div class="profile-btn" @click="logout">
+                    <i class="fa-solid fa-user-circle"></i>
+                    {{ user?.email || "Profile" }}
+                  </div>
+                </li>
+
+                <li v-else>
+                  <NuxtLink to="/login">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                  </NuxtLink>
+                  <NuxtLink to="/register">
+                    <i class="fa-solid fa-user-plus"></i> Register
+                  </NuxtLink>
+                </li>
+              </ul>
+            </div>
           </div>
+        </transition>
+      </div>
+
+      <div
+        v-if="isAuthenticated"
+        class="user-profile"
+        @click="toggleProfileMenu"
+      >
+        <div class="profile-circle">
+          <i class="fa-solid fa-user"></i>
         </div>
-      </transition>
-    </div>
-      <NuxtLink to="/login" class="login-btn">Log in / Sign in</NuxtLink>
+
+        <!-- <transition name="fade">
+          <div v-if="showProfileMenu" class="profile-dropdown">
+            <div class="dropdown-item" @click="goToProfile">
+              <i class="fa-solid fa-user-circle"></i>
+              Мой профиль
+            </div>
+            <div class="dropdown-item" @click="goToProfile">
+              <i class="fa-solid fa-user-circle"></i>
+              <span class="user-email">{{ user?.email }}</span>
+            </div>
+
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item logout-item" @click="logout">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              Выйти
+            </div>
+          </div>
+        </transition> -->
+      </div>
+
+      <div v-else class="auth-buttons border-t-4 border-b-4 border-white">
+        <NuxtLink to="/login" class="login-btn">Log in /</NuxtLink>
+        <NuxtLink to="/register" class="register-btn"> Sign in</NuxtLink>
+      </div>
     </header>
 
     <section class="hero">
@@ -53,16 +101,16 @@
     <section class="categories">
       <h2>Выбирайте по категориям</h2>
       <div class="category-list">
-      <NuxtLink to="/catalog#fashion" class="category">
-  <span>Мода и красота</span>
-</NuxtLink>
-        <NuxtLink to="/catalog#home" class="cloth category">
-           <span>Для дома</span>
+        <NuxtLink to="/catalog#fashion" class="category">
+          <span>Мода и красота</span>
         </NuxtLink>
-       
-      <NuxtLink to="/catalog#food" class="furnit category">
+        <NuxtLink to="/catalog#home" class="cloth category">
+          <span>Для дома</span>
+        </NuxtLink>
+
+        <NuxtLink to="/catalog#food" class="furnit category">
           <span>Еда, табачная и алкогольная продукция</span>
-      </NuxtLink>
+        </NuxtLink>
 
         <div
           v-if="!showMore"
@@ -73,177 +121,215 @@
           <span>Ещё...</span>
         </div>
 
-  <template v-if="showMore">
-  <NuxtLink
-    v-for="(cat, index) in extraCategories"
-    :key="index"
-    :to="`/catalog#${cat.slug}`"
-    class="category extra-category"
-    :style="{ backgroundImage: `url(${cat.image})` }"
-  >
-    <span>{{ cat.name }}</span>
-  </NuxtLink>
+        <template v-if="showMore">
+          <NuxtLink
+            v-for="(cat, index) in extraCategories"
+            :key="index"
+            :to="`/catalog#${cat.slug}`"
+            class="category extra-category"
+            :style="{ backgroundImage: `url(${cat.image})` }"
+          >
+            <span>{{ cat.name }}</span>
+          </NuxtLink>
 
-  <div class="category hide-btn" @click="showMore = false" style="cursor: pointer">
-    <span>Скрыть</span>
-  </div>
-</template>
+          <div
+            class="category hide-btn"
+            @click="showMore = false"
+            style="cursor: pointer"
+          >
+            <span>Скрыть</span>
+          </div>
+        </template>
       </div>
     </section>
 
- <div class="new-arrivals">
-    <div class="header">
-      <h2>НОВИНКИ</h2>
-      <button class="shop-btn">
-      Перейти к покупкам <i class="fa-solid fa-cart-shopping"></i>
-      </button>
-    </div>
+    <div class="new-arrivals">
+      <div class="header">
+        <h2>НОВИНКИ</h2>
+        <button class="shop-btn">
+          Перейти к покупкам <i class="fa-solid fa-cart-shopping"></i>
+        </button>
+      </div>
 
-    <div class="carousel">
-      <div
-        class="carousel-track"
-        :style="{ transform: `translateX(-${activeIndex * cardWidth}px)` }"
-      >
-      
+      <div class="carousel">
         <div
-          v-for="(item, i) in visibleProducts"
-          :key="i"
-          class="product-card"
-          :class="{ active: i % products.length === activeIndex % products.length }"
+          class="carousel-track"
+          :style="{ transform: `translateX(-${activeIndex * cardWidth}px)` }"
         >
-          <i class="fa-regular fa-heart fav-icon"></i>
-          <img :src="item.image" :alt="item.name" />
-          <h3>{{ item.name }}</h3>
-          <p>price: <span>{{ item.price }}</span></p>
-          <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </button>
+          <div
+            v-for="(item, i) in visibleProducts"
+            :key="i"
+            class="product-card"
+            :class="{
+              active: i % products.length === activeIndex % products.length,
+            }"
+          >
+            <i class="fa-regular fa-heart fav-icon"></i>
+            <img :src="item.image" :alt="item.name" />
+            <h3>{{ item.name }}</h3>
+            <p>
+              price: <span>{{ item.price }}</span>
+            </p>
+            <button class="cart-btn">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-
- <section class="newly-added-section">
-    <div class="section-header">
-      <div>
-        <h2 class="main-title">НОВЫЕ</h2>
-        <h3 class="sub-title">КОМПАНИИ</h3>
-      </div>
+    <section class="newly-added-section">
+      <div class="section-header">
+        <div>
+          <h2 class="main-title">НОВЫЕ</h2>
+          <h3 class="sub-title">КОМПАНИИ</h3>
+        </div>
         <button class="shop-btnn">
-    Посмотреть все <i class="fa-solid "></i>
-      </button>
-    </div>
-
-
-    <div class="cards-grid">
-      <div v-for="i in 3" :key="i" class="company-card">
-        <img
-          :src="`https://picsum.photos/seed/company${i}/600/400`"
-          alt="Company Building"
-          class="card-image"
-        />
-        <div class="card-label">Name</div>
+          Посмотреть все <i class="fa-solid"></i>
+        </button>
       </div>
-    </div>
-  </section>
 
+      <div class="cards-grid">
+        <div v-for="i in 3" :key="i" class="company-card">
+          <img
+            :src="`https://picsum.photos/seed/company${i}/600/400`"
+            alt="Company Building"
+            class="card-image"
+          />
+          <div class="card-label">Name</div>
+        </div>
+      </div>
+    </section>
 
-   <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-left">
-        <span class="logo">SupplierHub</span>
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-left">
+          <span class="logo">SupplierHub</span>
+        </div>
+        <div class="footer-center">
+          <span class="copyright">© SupplierHub, All rights reserved</span>
+        </div>
+        <div class="footer-right">
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
+        </div>
       </div>
-      <div class="footer-center">
-        <span class="copyright">© SupplierHub, All rights reserved</span>
-      </div>
-      <div class="footer-right">
-        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
-      </div>
-    </div>
-  </footer>
+    </footer>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import { useAuth } from "@/composables/useAuth";
 
-const showMore = ref(false)
+const { user, isAuthenticated, isAdmin, logout } = useAuth();
+const showProfileMenu = ref(false);
 
+const toggleProfileMenu = () => {
+  showProfileMenu.value = !showProfileMenu.value;
+};
 
-const menuOpen = ref(false)
-const toggleMenu = () => {
-  menuOpen.value = !menuOpen.value
-}
+const closeProfileMenu = (event) => {
+  if (!event.target.closest(".user-profile")) {
+    showProfileMenu.value = false;
+  }
+};
 
+const menuOpen = ref(false);
+const toggleMenu = () => (menuOpen.value = !menuOpen.value);
+
+const goToProfile = () => {
+  navigateTo("/profile");
+  showProfileMenu.value = false;
+};
+
+const goToSettings = () => {
+  navigateTo("/settings");
+  showProfileMenu.value = false;
+};
+
+const showMore = ref(false);
 const extraCategories = [
   {
-    name: 'Компьютеры, телефония, канцтовары',
-    image: '/images/good.jpeg',
-     slug: 'computers' 
+    name: "Компьютеры, телефония, канцтовары",
+    image: "/images/good.jpeg",
+    slug: "computers",
   },
   {
-    name: 'Детские товары, развлечения, хобби',
-    image: '/images/toys.jpeg',
-    slug: 'kids' 
+    name: "Детские товары, развлечения, хобби",
+    image: "/images/toys.jpeg",
+    slug: "kids",
   },
+  { name: "Автозапчасти, техника", image: "/images/teh.jpeg", slug: "auto" },
+  { name: "Медицинские товары", image: "/images/medi.jpeg", slug: "medical" },
   {
-    name: 'Автозапчасти, техника',
-    image: '/images/teh.jpeg',
-    slug: 'auto' 
+    name: "Промышленность, строительство",
+    image: "/images/str.jpeg",
+    slug: "industry",
   },
-  {
-    name: 'Медицинские товары',
-    image: '/images/medi.jpeg',
-    slug: 'medical' 
-  },
-  {
-    name: 'Промышленность, строительство',
-    image: '/images/str.jpeg',
-    slug: 'industry' 
-  }
 ];
 
-
-const cardWidth = 285; 
-
+const cardWidth = 285;
 const products = [
-  { name: "Chair", price: "$47.50", image: "https://i.ibb.co/tQKHLmQ/chair.png" },
-  { name: "Headphone", price: "$47.50", image: "https://i.ibb.co/3CMK5SK/headphones.png" },
-  { name: "Superstar", price: "$80.15", image: "https://i.ibb.co/3vJbMLR/shoes.png" },
-  { name: "Perfume", price: "$64.75", image: "https://i.ibb.co/WfZt6cz/perfume.png" },
-  { name: "Watch", price: "$92.00", image: "https://i.ibb.co/YX9W7nX/watch.png" },
-  { name: "Sunglasses", price: "$35.99", image: "https://i.ibb.co/z78NbQJ/sunglasses.png" },
+  {
+    name: "Chair",
+    price: "$47.50",
+    image: "https://i.ibb.co/tQKHLmQ/chair.png",
+  },
+  {
+    name: "Headphone",
+    price: "$47.50",
+    image: "https://i.ibb.co/3CMK5SK/headphones.png",
+  },
+  {
+    name: "Superstar",
+    price: "$80.15",
+    image: "https://i.ibb.co/3vJbMLR/shoes.png",
+  },
+  {
+    name: "Perfume",
+    price: "$64.75",
+    image: "https://i.ibb.co/WfZt6cz/perfume.png",
+  },
+  {
+    name: "Watch",
+    price: "$92.00",
+    image: "https://i.ibb.co/YX9W7nX/watch.png",
+  },
+  {
+    name: "Sunglasses",
+    price: "$35.99",
+    image: "https://i.ibb.co/z78NbQJ/sunglasses.png",
+  },
 ];
 
 const visibleProducts = computed(() => [
-  ...products.slice(-4), 
+  ...products.slice(-4),
   ...products,
-  ...products.slice(0, 4), 
+  ...products.slice(0, 4),
 ]);
 
-const activeIndex = ref(4); 
+const activeIndex = ref(4);
 let interval;
 const autoSlide = () => {
   activeIndex.value++;
   if (activeIndex.value >= products.length + 4) {
     setTimeout(() => {
       activeIndex.value = 4;
-    }, 700); 
+    }, 700);
   }
 };
 
 onMounted(() => {
   interval = setInterval(autoSlide, 3000);
+  document.addEventListener("click", closeProfileMenu);
 });
 
 onUnmounted(() => {
   clearInterval(interval);
+  document.removeEventListener("click", closeProfileMenu);
 });
-
-
 </script>
 
 <style scoped>
@@ -253,6 +339,14 @@ onUnmounted(() => {
   background-color: rgba(20, 33, 61, 1);
   margin: 0;
   padding: 0;
+}
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+
+  transition: 0.2s;
 }
 
 .navbar {
@@ -264,29 +358,27 @@ onUnmounted(() => {
   justify-content: space-between;
   align-items: center;
   z-index: 10;
-  background-color: rgba(11, 23, 48, 0.8);
+  background-color: rgba(20, 33, 61, 0.8);
 }
-.login-btn {
+.auth-buttons {
   margin-right: 50px;
   color: white;
   text-decoration: none;
-  font-size: 14px;
-  border: 1px solid white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  display: inline-block;
-}
-.login-btn:hover {
-  margin-right: 50px;
-  color: #FCA311;
-  text-decoration: none;
-  font-size: 14px;
-  border: 1px solid white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  display: inline-block;
-}
+  font-size: 16px;
 
+  padding: 6px 12px;
+
+  display: inline-block;
+}
+.auth-buttons:hover {
+  margin-right: 50px;
+  color: #fca311;
+  text-decoration: none;
+
+  padding: 6px 12px;
+
+  display: inline-block;
+}
 
 .hero {
   position: relative;
@@ -345,7 +437,7 @@ onUnmounted(() => {
   font-size: 30px;
   font-weight: 500;
   margin-bottom: 30px;
-margin-left: 120px;
+  margin-left: 120px;
 }
 .category-list {
   display: flex;
@@ -355,7 +447,7 @@ margin-left: 120px;
 }
 .category {
   width: 90%;
-  background-image: url('/images/accessories.jpg');
+  background-image: url("/images/accessories.jpg");
   max-width: 1200px;
   height: 60px;
   border-radius: 30px;
@@ -368,16 +460,16 @@ margin-left: 120px;
   overflow: hidden;
 }
 .cloth {
-  background-image: url('/images/for-hme.jpeg');
+  background-image: url("/images/for-hme.jpeg");
 }
 .furnit {
-  background-image: url('/images/food.jpeg');
+  background-image: url("/images/food.jpeg");
 }
 .more {
-  background-image: url('/public/images/furniture.jpg');
+  background-image: url("/public/images/furniture.jpg");
 }
 .hide-btn {
-  background-image: url('/images/more.jpg');
+  background-image: url("/images/more.jpg");
 }
 .category::after {
   content: "";
@@ -386,14 +478,13 @@ margin-left: 120px;
   background-color: rgba(11, 23, 48, 0.55);
 }
 .category span {
-position: relative;
-z-index: 1;
-font-size: 16px;
-margin-left:50px ;
-background-color:#0b1730;
-padding: 5px 15px;
-border-radius: 20px;
-
+  position: relative;
+  z-index: 1;
+  font-size: 16px;
+  margin-left: 50px;
+  background-color: #0b1730;
+  padding: 5px 15px;
+  border-radius: 20px;
 }
 .category:hover {
   transform: scale(1.03);
@@ -412,14 +503,13 @@ border-radius: 20px;
   color: white;
   cursor: pointer;
   padding: 4px 10px;
-    border: 1px solid white;
+  border: 1px solid white;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 .close-icon:hover {
   transform: scale(1.2);
-  color: #FCA311;
+  color: #fca311;
 }
-
 
 .burger-container {
   position: relative;
@@ -432,7 +522,7 @@ border-radius: 20px;
 }
 
 .burger-icon {
-    margin-left: 35px;
+  margin-left: 35px;
   background: none;
   border: none;
   color: white;
@@ -462,10 +552,10 @@ border-radius: 20px;
 }
 
 .menu-content {
-    background-color: #0b1730;
+  background-color: #0b1730;
   width: 300px;
   height: 100%;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
   padding: 40px 20px;
   position: relative;
   animation: slideIn 0.3s ease forwards;
@@ -500,7 +590,7 @@ border-radius: 20px;
   content: "";
   position: absolute;
   left: 0;
-  bottom: -3px; 
+  bottom: -3px;
   width: 0%;
   height: 2px;
   background-color: #ffffff;
@@ -512,18 +602,24 @@ border-radius: 20px;
 }
 
 .menu-content a:hover {
-  color: #FCA311;
+  color: #fca311;
 }
 
 @keyframes slideIn {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
-.slide-enter-active, .slide-leave-active {
+.slide-enter-active,
+.slide-leave-active {
   transition: opacity 0.3s ease;
 }
-.slide-enter-from, .slide-leave-to {
+.slide-enter-from,
+.slide-leave-to {
   opacity: 0;
 }
 
@@ -544,7 +640,7 @@ border-radius: 20px;
 
 .header h2 {
   color: #fff;
-font-size: 30px;
+  font-size: 30px;
   font-weight: 800;
   margin-left: 100px;
 }
@@ -573,13 +669,13 @@ font-size: 30px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-right:19px ;
+  margin-right: 19px;
   gap: 8px;
 }
 
 .carousel {
   position: relative;
-  width: 1180px; 
+  width: 1180px;
   overflow: hidden;
   margin: 10px 95px;
 }
@@ -672,7 +768,6 @@ font-size: 30px;
     font-size: 26px;
     flex: 1 1 100%;
   }
-
 }
 
 @media (max-width: 768px) {
@@ -680,21 +775,20 @@ font-size: 30px;
     padding: 30px 20px;
   }
   .category span {
-  position: relative;
-  z-index: 1;
-  font-size: 13px;
-margin-left:20px ;
-background-color:#0b1730;
-padding: 5px 15px;
-border-radius: 20px;
+    position: relative;
+    z-index: 1;
+    font-size: 13px;
+    margin-left: 20px;
+    background-color: #0b1730;
+    padding: 5px 15px;
+    border-radius: 20px;
+  }
+  .categories h2 {
+    font-size: 24px;
 
-}
-.categories h2 {
-  font-size: 24px;
-
-  margin-bottom: 30px;
-margin-left: 40px;
-}
+    margin-bottom: 30px;
+    margin-left: 40px;
+  }
   .header {
     display: flex;
     justify-content: space-between;
@@ -707,7 +801,6 @@ margin-left: 40px;
     margin-left: -60px;
   }
 
-
   .carousel {
     width: 100%;
     margin: auto;
@@ -719,7 +812,7 @@ margin-left: 40px;
   .carousel-track {
     display: flex;
     gap: 10px;
-    transition: none; 
+    transition: none;
     padding: 10px 20px;
   }
 
@@ -753,7 +846,6 @@ margin-left: 40px;
 @media (max-width: 480px) {
   .header h2 {
     font-size: 22px;
-
   }
 
   .shop-btn {
@@ -761,11 +853,11 @@ margin-left: 40px;
     padding: 3px 13px;
     margin-right: -0px;
   }
-   .shop-btnn {
+  .shop-btnn {
     font-size: 10px;
     padding: 3px 10px;
-        margin-right: -0px;
-        text-align: center;
+    margin-right: -0px;
+    text-align: center;
   }
 
   .product-card {
@@ -798,16 +890,16 @@ margin-left: 40px;
 .main-title {
   font-size: 30px;
   font-weight: bold;
-  color: #1f2937; 
+  color: #1f2937;
   margin: 0;
-   margin-left: 100px;
+  margin-left: 100px;
 }
 
 .sub-title {
   font-size: 30px;
-   margin-left: 100px;
+  margin-left: 100px;
   font-weight: bold;
-  color: #f59e0b; 
+  color: #f59e0b;
 }
 
 .view-all-btn {
@@ -827,17 +919,10 @@ margin-left: 40px;
 }
 
 .cards-grid {
-display: flex;
-justify-content: center;
-gap: 35px;
-
- 
-
+  display: flex;
+  justify-content: center;
+  gap: 35px;
 }
-
-
-
-
 
 .company-card {
   position: relative;
@@ -866,12 +951,9 @@ gap: 35px;
   font-weight: bold;
 }
 
-
 .company-card:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
-
-
 
 @media (min-width: 640px) and (max-width: 1023px) {
   .cards-grid {
@@ -880,7 +962,6 @@ gap: 35px;
     justify-items: center;
   }
 }
-
 
 .company-card {
   position: relative;
@@ -918,7 +999,6 @@ gap: 35px;
   letter-spacing: 0.5px;
 }
 
-
 @media (max-width: 768px) {
   .newly-added-section {
     padding: 32px 16px;
@@ -926,7 +1006,7 @@ gap: 35px;
 
   .section-header {
     display: flex;
-    align-items:center;
+    align-items: center;
     text-align: center;
     margin-bottom: 24px;
     margin-left: 33px;
@@ -943,21 +1023,21 @@ gap: 35px;
     font-size: 13px;
     padding: 8px 16px;
   }
-.cards-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  flex-wrap: wrap; 
-  gap: 35px;
-  max-width: 1200px;
-  margin: 0 auto; 
-}
+  .cards-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 35px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
   .company-card {
     flex: 0 0 80%;
     width: 100%;
     max-width: 200px;
-   justify-content: center;
+    justify-content: center;
   }
 
   .card-image {
@@ -978,7 +1058,6 @@ gap: 35px;
 
   .cards-grid {
     gap: 16px;
-
   }
 
   .company-card {
@@ -999,20 +1078,18 @@ gap: 35px;
   }
 }
 .footer {
-  background-color: #0b1730; 
+  background-color: #0b1730;
   padding: 2rem 1rem;
   position: relative;
 }
 
-
 .footer::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
- 
 }
 
 .footer-content {
@@ -1060,7 +1137,6 @@ gap: 35px;
   transform: scale(1.1);
 }
 
-
 @media (max-width: 768px) {
   .footer-content {
     flex-direction: column;
@@ -1068,22 +1144,22 @@ gap: 35px;
     text-align: center;
     padding: 0 1rem;
   }
-  
+
   .footer-left,
   .footer-center,
   .footer-right {
     width: 100%;
     justify-content: center;
   }
-  
+
   .footer-left .logo {
     font-size: 1.2rem;
   }
-  
+
   .footer-center .copyright {
     font-size: 0.8rem;
   }
-  
+
   .social-icon {
     width: 35px;
     height: 35px;
@@ -1092,7 +1168,6 @@ gap: 35px;
 }
 
 @media (max-width: 768px) {
-
   .burger-container {
     justify-content: space-between;
     padding: 12px 16px;
@@ -1110,26 +1185,22 @@ gap: 35px;
   .menu-content a {
     font-size: 16px;
   }
-.login-btn {
-  margin-right: 30px;
-  color: white;
-  text-decoration: none;
-  font-size: 11px;
-  border: 1px solid white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  display: inline-block;
-}
-.login-btn:hover {
-  margin-right: 50px;
-  color: #FCA311;
-  text-decoration: none;
-  font-size: 14px;
-  border: 1px solid white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  display: inline-block;
-}
-}
+  .login-btn {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
 
+    display: inline-block;
+  }
+  .login-btn:hover {
+    margin-right: 50px;
+    color: #fca311;
+    text-decoration: none;
+    font-size: 14px;
+    border: 1px solid white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+}
 </style>

@@ -5,7 +5,6 @@
     <div
       class="bg-[#fca311] rounded-3xl shadow-2xl w-96 p-8 relative overflow-hidden"
     >
-      <!-- Decorative circle -->
       <div
         class="absolute -top-16 -right-16 w-40 h-40 bg-[#14213D] rounded-full opacity-20"
       ></div>
@@ -62,7 +61,9 @@
 
 <script setup>
 import { useAuth } from "~/composables/useAuth";
-const { register } = useAuth();
+import { navigateTo } from "#app";
+
+const { register, login, fetchUser } = useAuth();
 
 const email = ref("");
 const password = ref("");
@@ -70,11 +71,26 @@ const phoneNumber = ref("");
 
 const handleRegister = async () => {
   try {
-    await register(email.value, password.value, phoneNumber.value);
-    alert("Registration successful!");
-    navigateTo("/login");
+    const result = await register(
+      email.value,
+      password.value,
+      phoneNumber.value
+    );
+
+    if (result?.token) {
+      const { token } = result;
+      const auth = useAuth();
+      auth.token.value = token;
+      // await fetchUser();
+      // navigateTo("/login");
+      return;
+    }
+
+    // await login(email.value, password.value);
+    // await fetchUser();
+    // navigateTo("/login");
   } catch (err) {
-    console.error(err);
+    console.error("Registration failed:", err);
     alert("Registration failed!");
   }
 };

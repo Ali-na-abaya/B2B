@@ -1,45 +1,91 @@
+import { ref, computed, onMounted, watchEffect } from "vue";
 import { useCookie, useRuntimeConfig } from "#imports";
+import { jwtDecode } from "jwt-decode";
 
 export const useAuth = () => {
-  const token = useCookie("token", { maxAge: 60 * 60 * 24 * 7 });
+  const token = useCookie("token");
   const user = ref(null);
   const config = useRuntimeConfig();
 
   const login = async (email, password) => {
-    const data = await $fetch("/auth/login", {
-      baseURL: config.public.apiBase,
-      method: "POST",
-      body: { email, password },
-    });
-    token.value = data?.token;
-    await fetchUser();
+    try {
+      const data = await $fetch("/auth/login", {
+        baseURL: config.public.apiBase,
+        method: "POST",
+        body: { email, password },
+      });
+      if (data?.token) {
+        const decoded = jwtDecode(data.token);
+        token.value = data.token;
+        user.value = decoded;
+      }
+      return data;
+    } catch (err) {
+      console.error("login error:", err);
+      throw err;
+    }
   };
 
   const register = async (email, password, phoneNumber) => {
-    const data = await $fetch("/auth/register", {
-      baseURL: config.public.apiBase,
-      method: "POST",
-      body: { email, password, phoneNumber },
-    });
-    return data;
-  };
+    try {
+      const data = await $fetch("/auth/register", {
+        baseURL: config.public.apiBase,
+        method: "POST",
+        body: { email, password, phoneNumber },
+      });
 
-  const fetchUser = async () => {
-    if (!token.value) return;
-    const data = await $fetch("/users/me", {
-      baseURL: config.public.apiBase,
-      headers: { Authorization: `Bearer ${token.value}` },
-    });
-    user.value = data;
+      if (data?.accessToken) {
+        token.value = data.accessToken;
+        const decoded = jwtDecode(data.accessToken);
+        user.value = decoded;
+        navigateTo("/");
+      }
+
+      return data;
+    } catch (err) {
+      console.error("register error:", err);
+      throw err;
+    }
   };
 
   const logout = () => {
     token.value = null;
     user.value = null;
+    navigateTo("/login");
   };
 
   const isAdmin = computed(() => user.value?.role === "admin");
   const isAuthenticated = computed(() => !!user.value);
 
-  return { user, login, register, logout, fetchUser, isAdmin, isAuthenticated };
+  onMounted(() => {
+    if (token.value) {
+      try {
+        user.value = jwtDecode(token.value);
+      } catch {
+        token.value = null;
+      }
+    }
+  });
+
+  watchEffect(() => {
+    if (token.value) {
+      try {
+        user.value = jwtDecode(token.value);
+      } catch {
+        user.value = null;
+      }
+    } else {
+      user.value = null;
+    }
+  });
+
+  return {
+    token,
+    user,
+    login,
+    register,
+    logout,
+    isAdmin,
+    isAuthenticated,
+  };
 };
