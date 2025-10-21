@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, watchEffect } from "vue";
+import { ref, computed, watchEffect } from "vue";
 import { useCookie, useRuntimeConfig } from "#imports";
 import { jwtDecode } from "jwt-decode";
 
@@ -6,7 +6,6 @@ export const useAuth = () => {
   const token = useCookie("token");
   const user = ref(null);
   const config = useRuntimeConfig();
-  const router = useRouter();
 
   const login = async (email, password) => {
     try {
@@ -15,11 +14,14 @@ export const useAuth = () => {
         method: "POST",
         body: { email, password },
       });
-      if (data?.token) {
-        const decoded = jwtDecode(data.token);
-        token.value = data.token;
+
+      if (data?.accessToken) {
+        token.value = data.accessToken;
+        const decoded = jwtDecode(data.accessToken);
         user.value = decoded;
+        navigateTo("/");
       }
+
       return data;
     } catch (err) {
       console.error("login error:", err);
@@ -51,23 +53,12 @@ export const useAuth = () => {
 
   const logout = () => {
     token.value = null;
-    refresh.value = null;
     user.value = null;
     navigateTo("/login");
   };
 
   const isAdmin = computed(() => user.value?.role === "admin");
   const isAuthenticated = computed(() => !!user.value);
-
-  onMounted(() => {
-    if (token.value) {
-      try {
-        user.value = jwtDecode(token.value);
-      } catch {
-        token.value = null;
-      }
-    }
-  });
 
   watchEffect(() => {
     if (token.value) {

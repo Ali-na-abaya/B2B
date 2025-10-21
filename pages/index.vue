@@ -35,7 +35,7 @@
 
                 <li v-if="isAuthenticated">
                   <div class="profile-btn" @click="logout">
-                    <i class="fa-solid fa-user-circle"></i>
+                    <i class="fa-solid fa-user-circle profle"></i>
                     {{ user?.email || "Profile" }}
                   </div>
                 </li>
@@ -393,6 +393,11 @@ onUnmounted(() => {
   text-align: right;
   padding: 40px;
   padding-top: 100px;
+}
+.profle {
+  border: 2px;
+  border-radius: 100%;
+  border-color: #fff;
 }
 .overlay {
   position: absolute;
