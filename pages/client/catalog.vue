@@ -17,7 +17,7 @@
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/catalog">
+                    <NuxtLink :to="{ name: 'clientCatalogPage',}">
                       <i class="fa-solid fa-bag-shopping"></i> Catalog
                     </NuxtLink>
                   </li>
@@ -306,6 +306,7 @@
 </template>
 
 <script setup>
+definePageMeta({name:"clientCatalogPage"})
 import { ref, computed } from 'vue'
 import { onMounted } from 'vue'
 
@@ -818,5 +819,4 @@ const filteredOther = computed(() => activeOther.value === 'Все' ? otherProdu
     font-size: 18px;
   }
 }
-
 </style>
