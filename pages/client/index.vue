@@ -16,13 +16,13 @@
                 </li>
 
                 <li>
-                  <NuxtLink to="/catalog">
+                  <NuxtLink :to="{ name: 'clientCatalogPage',}">
                     <i class="fa-solid fa-bag-shopping"></i> Catalog
                   </NuxtLink>
                 </li>
 
                 <li>
-                  <NuxtLink to="/suppliers">
+                  <NuxtLink :to="{ name: 'clientSuppliersPage',}">
                     <i class="fa-solid fa-industry"></i> Suppliers
                   </NuxtLink>
                 </li>

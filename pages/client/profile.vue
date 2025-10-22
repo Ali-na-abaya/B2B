@@ -15,22 +15,22 @@
 
           <ul>
   <li>
-    <NuxtLink to="/">
+    <NuxtLink :to="{ name: 'homePage',}">
       <i class="fa-solid fa-house"></i> Home
     </NuxtLink>
   </li>
   <li>
-    <NuxtLink to="/catalog">
+    <NuxtLink :to="{ name: 'clientCatalogPage',}">
       <i class="fa-solid fa-bag-shopping"></i> Catalog
     </NuxtLink>
   </li>
   <li>
-    <NuxtLink to="/suppliers">
+    <NuxtLink :to="{ name: 'clientSuppliersPage',}">
       <i class="fa-solid fa-industry"></i> Suppliers
     </NuxtLink>
   </li>
   <li>
-    <NuxtLink to="/profile">
+    <NuxtLink :to="{ name: 'clientProfilePage',}">
       <i class="fa-solid fa-user"></i> Profile
     </NuxtLink>
   </li>
@@ -101,6 +101,7 @@
 </template>
 
 <script setup>
+definePageMeta({name:"clientProfilePage"})
 import { ref, computed } from 'vue'
 
 

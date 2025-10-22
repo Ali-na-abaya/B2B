@@ -12,7 +12,7 @@
             <div class="close-icon" @click="toggleMenu">✕</div>
              <ul>
                   <li>
-                    <NuxtLink to="/">
+                    <NuxtLink :to="{ name: 'homePage',}">
                       <i class="fa-solid fa-house"></i> Home
                     </NuxtLink>
                   </li>
@@ -22,12 +22,12 @@
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/suppliers">
+                    <NuxtLink :to="{ name: 'clientSuppliersPage',}">
                       <i class="fa-solid fa-industry"></i> Suppliers
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/profile">
+                    <NuxtLink :to="{ name: 'clientProfilePage',}">
                       <i class="fa-solid fa-user"></i> Profile
                     </NuxtLink>
                   </li>
