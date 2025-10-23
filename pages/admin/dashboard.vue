@@ -6,7 +6,7 @@
       </div>
 
       <nav class="sidebar-nav">
-        <NuxtLink :to="{ name: 'dashboard',}" class="nav-item">
+        <NuxtLink :to="{ name: 'dashboard' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"/>
             <path d="M14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"/>
@@ -56,30 +56,152 @@
         </div>
       </header>
 
-    
+      <main class="main-content2">
 
-    
+        <div class="stats">
+          <div class="stat-card">
+            <h3>Total Categories</h3>
+            <p>{{ totalCategories }}</p>
+          </div>
+          <div class="stat-card">
+            <h3>Total Suppliers</h3>
+            <p>{{ totalSuppliers }}</p>
+          </div>
+          <div class="stat-card">
+            <h3>Total Products</h3>
+            <p>{{ totalProducts }}</p>
+          </div>
+        </div>
+
+
+        <div class="new-section">
+          <div class="new-box">
+            <h3>New companies on the site</h3>
+            <ul>
+              <li v-for="(company, i) in newCompanies.slice(0, visibleCompanyCount)" :key="i" class="company-item">
+                <div class="circle"></div>
+                <div>
+                  <span class="company-name">{{ company.name }}</span><br />
+                  <small>{{ company.city }}</small>
+                </div>
+              </li>
+            </ul>
+            <button class="show-more" @click="toggleCompanies">
+              {{ showAllCompanies ? "Hide" : "Show more" }}
+            </button>
+          </div>
+
+          <div class="new-box">
+            <h3>New products on the site</h3>
+            <ul>
+              <li v-for="(product, i) in newProducts.slice(0, visibleProductCount)" :key="i" class="company-item">
+                <div class="circle"></div>
+                <div>
+                  <span class="company-name">{{ product.name }}</span><br />
+                  <small>{{ product.supplier }}</small>
+                </div>
+              </li>
+            </ul>
+            <button class="show-more" @click="toggleProducts">
+              {{ showAllProducts ? "Hide" : "Show more" }}
+            </button>
+          </div>
+        </div>
+
+
+        <div class="recent-activity">
+          <h3>Recent Activity</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Supplier</th>
+                <th>Added Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, i) in recentActivity.slice(0, visibleActivityCount)" :key="i">
+                <td>{{ item.product }}</td>
+                <td>{{ item.supplier }}</td>
+                <td>{{ item.date }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="show-more" @click="toggleActivity">
+            {{ showAllActivity ? "Hide" : "Show more" }}
+          </button>
+        </div>
+      </main>
     </div>
   </div>
 </template>
-
 <script setup>
-definePageMeta({name:"dashboard"})
-import { navigateTo } from '#imports'
+definePageMeta({ name: "dashboard" })
+import { navigateTo } from "#imports"
+import { ref } from "vue"
+
+const addSupplier = () => navigateTo("/admin/add-supplier")
+const logout = () => navigateTo("/login", { replace: true })
 
 
+const totalCategories = 39
+const totalSuppliers = 12
+const totalProducts = 300
+
+const originalNewCompanies = [
+  { name: "ТОО Flario KZ", city: "Казахстан, Алматы" },
+  { name: "ИП NovaTrade", city: "Казахстан, Астана" },
+  { name: "ТОО Orion Ltd", city: "Казахстан, Шымкент" },
+  { name: "ТОО QazPro", city: "Казахстан, Караганда" },
+]
+
+const originalNewProducts = [
+  { name: "Accessories", supplier: "ИП Овация" },
+  { name: "Perfume", supplier: "BeautyStore" },
+  { name: "Shoes", supplier: "Comfort Trade" },
+  { name: "Watch", supplier: "TimeLine" },
+]
+
+const originalRecentActivity = [
+  { product: "Accessories", supplier: "ИП Овация", date: "03.10.2025" },
+  { product: "Perfume", supplier: "BeautyStore", date: "05.10.2025" },
+  { product: "Shoes", supplier: "Comfort Trade", date: "06.10.2025" },
+  { product: "Watch", supplier: "TimeLine", date: "08.10.2025" },
+  { product: "Glasses", supplier: "VisionPro", date: "10.10.2025" },
+]
 
 
+const newCompanies = [...originalNewCompanies, ...originalNewCompanies]
+const newProducts = [...originalNewProducts, ...originalNewProducts]
+const recentActivity = [...originalRecentActivity, ...originalRecentActivity]
 
-const addSupplier = () => {
-  navigateTo('/admin/add-supplier') 
+
+const visibleCompanyCount = ref(4)
+const visibleProductCount = ref(4)
+const visibleActivityCount = ref(5)
+
+
+const showAllCompanies = ref(false)
+const showAllProducts = ref(false)
+const showAllActivity = ref(false)
+
+
+const toggleCompanies = () => {
+  showAllCompanies.value = !showAllCompanies.value
+  visibleCompanyCount.value = showAllCompanies.value ? newCompanies.length : 4
 }
 
-const logout = () => {
+const toggleProducts = () => {
+  showAllProducts.value = !showAllProducts.value
+  visibleProductCount.value = showAllProducts.value ? newProducts.length : 4
+}
 
-  navigateTo('/login', { replace: true })
+const toggleActivity = () => {
+  showAllActivity.value = !showAllActivity.value
+  visibleActivityCount.value = showAllActivity.value ? recentActivity.length : 5
 }
 </script>
+
 
 <style scoped>
 .sidebar {
@@ -232,5 +354,114 @@ const logout = () => {
   padding: 24px;
   flex: 1;
   overflow-y: auto;
+}
+
+
+
+
+
+
+.main-content2 {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+
+.stats {
+  display: flex;
+  gap: 20px;
+}
+.stat-card {
+  background: white;
+  flex: 1;
+  padding: 18px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.stat-card h3 {
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.new-section {
+  display: flex;
+  gap: 20px;
+  margin-top: 25px;
+}
+.new-box {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.new-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.company-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+.circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #f4a100;
+}
+.company-name {
+  font-weight: 500;
+}
+
+
+.recent-activity {
+  margin-top: 35px;
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.recent-activity h3 {
+  margin-bottom: 15px;
+  font-size: 32px;
+  text-align: center;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+th, td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+/* Show more button */
+.show-more {
+  background: transparent;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  text-align: right;
+  width: 100%;
+  padding: 8px 0;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.show-more:hover {
+  color: #333;
+  text-decoration: underline;
 }
 </style>
