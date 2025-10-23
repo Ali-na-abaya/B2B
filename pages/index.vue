@@ -1,13 +1,15 @@
 <template>
-   <div></div> 
+  <div></div>
 </template>
 <script setup>
-import { onMounted } from 'vue'
-import { useRouter } from '#app'
+import { onMounted } from "vue";
+import { useRouter } from "#app";
 
-const router = useRouter()
+const router = useRouter();
 
 onMounted(() => {
-  router.replace('/admin/category')
-})
+  router.replace("/admin/category");
+
+  router.replace("/client");
+});
 </script>
