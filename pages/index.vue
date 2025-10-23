@@ -8,6 +8,6 @@ import { useRouter } from '#app'
 const router = useRouter()
 
 onMounted(() => {
-  router.replace('/client')
+  router.replace('/admin/category')
 })
 </script>
