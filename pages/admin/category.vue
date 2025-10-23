@@ -65,12 +65,7 @@
 
     <div class="main-content">
       <header class="header">
-        <h1>SupplierHub</h1>
         <div class="header-right">
-          <select class="lang-selector">
-            <option>en</option>
-            <option>ru</option>
-          </select>
           <div class="avatar"></div>
         </div>
       </header>
@@ -196,7 +191,7 @@ const logout = () => {
   color: white;
   padding: 16px 24px;
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
 }
 
