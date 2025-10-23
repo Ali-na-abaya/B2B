@@ -4,90 +4,62 @@
       <div class="sidebar-header">
         <h1>SupplierHub</h1>
       </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 5c3ccdd (описание изменений)
-<nav class="sidebar-nav">
-  <NuxtLink :to="{}" class="nav-item">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-      <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"/>
-      <path d="M14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"/>
-      <path d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z"/>
-      <path d="M14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
-    </svg>
-    Dashboard
-  </NuxtLink>
-<<<<<<< HEAD
 
-  <NuxtLink :to="{ name: 'categoriesPage' }" class="nav-item">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-      <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
-    </svg>
-    Categories
-  </NuxtLink>
-
-  <NuxtLink :to="{ }" class="nav-item">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-      <path d="M17 20h-2c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10zM19 12h2c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2h-2v-10zM9 12H7c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h2v10zM7 20H5c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10z"/>
-    </svg>
-    Suppliers
-  </NuxtLink>
-
-   <NuxtLink :to="{ }" class="nav-item">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-      <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9M9 9M9 9l6 6m6-6a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2z"/>
-    </svg>
-    Reports
-  </NuxtLink>
-</nav>
-
-=======
-=======
->>>>>>> 5c3ccdd (описание изменений)
-
-  <NuxtLink :to="{ name: 'categoriesPage' }" class="nav-item">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-      <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
-    </svg>
-    Categories
-  </NuxtLink>
-
-  <NuxtLink :to="{ }" class="nav-item">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-      <path d="M17 20h-2c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10zM19 12h2c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2h-2v-10zM9 12H7c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h2v10zM7 20H5c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10z"/>
-    </svg>
-    Suppliers
-  </NuxtLink>
-
-   <NuxtLink :to="{ }" class="nav-item">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-      <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9M9 9M9 9l6 6m6-6a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2z"/>
-    </svg>
-    Reports
-  </NuxtLink>
-</nav>
-
-<<<<<<< HEAD
-        <NuxtLink to="/reports" class="nav-item">
+      <nav class="sidebar-nav">
+        <NuxtLink to="/" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9M9 9M9 9l6 6m6-6a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2z"/>
+            <path
+              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"
+            />
+            <path
+              d="M14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"
+            />
+            <path
+              d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z"
+            />
+            <path
+              d="M14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+            />
+          </svg>
+          Dashboard
+        </NuxtLink>
+
+        <NuxtLink :to="{ name: 'categoriesPage' }" class="nav-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path
+              d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+            />
+          </svg>
+          Categories
+        </NuxtLink>
+
+        <NuxtLink to="/admin/suppliers" class="nav-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path
+              d="M17 20h-2c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10zM19 12h2c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2h-2v-10zM9 12H7c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h2v10zM7 20H5c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10z"
+            />
+          </svg>
+          Suppliers
+        </NuxtLink>
+
+        <NuxtLink to="/admin/reports" class="nav-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9l6 6m6-6a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2z"
+            />
           </svg>
           Reports
         </NuxtLink>
       </nav>
->>>>>>> d2f6901 (описание изменений)
-=======
->>>>>>> 5c3ccdd (описание изменений)
 
       <div class="sidebar-footer">
-       <button class="footer-btn" @click="addSupplier">Add supplier</button>
-      <button class="footer-btn" @click="logout">
-  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-    <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 6v.01M6 6v.01" />
-  </svg>
-  Log out
-</button>
+        <button class="footer-btn" @click="addSupplier">Add supplier</button>
+        <button class="footer-btn" @click="logout">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 6v.01M6 6v.01" />
+          </svg>
+          Log out
+        </button>
       </div>
     </aside>
 
@@ -105,42 +77,33 @@
 
       <div class="page-header">
         <h2>Product Categories</h2>
-       <button class="btn-add" @click="addCategory">+ Add new category</button>
+        <button class="btn-add" @click="addCategory">+ Add new category</button>
       </div>
 
       <div class="content-area">
         <CategoryTable />
       </div>
     </div>
-    
   </div>
 </template>
 
 <script setup>
-<<<<<<< HEAD
-<<<<<<< HEAD
-definePageMeta({name:"categoriesPage"})
-=======
->>>>>>> d2f6901 (описание изменений)
-=======
-definePageMeta({name:"categoriesPage"})
->>>>>>> 5c3ccdd (описание изменений)
-import { navigateTo } from '#imports'
-import CategoryTable from '~/pages/admin/categotable.vue'
+definePageMeta({ name: "categoriesPage" });
 
+import { navigateTo } from "#imports";
+import CategoryTable from "~/pages/admin/categotable.vue";
 
 const addCategory = () => {
-  navigateTo('/admin/add-category') 
-}
+  navigateTo("/admin/add-category");
+};
 
 const addSupplier = () => {
-  navigateTo('/admin/add-supplier') 
-}
+  navigateTo("/admin/add-supplier");
+};
 
 const logout = () => {
-
-  navigateTo('/login', { replace: true })
-}
+  navigateTo("/login", { replace: true });
+};
 </script>
 
 <style scoped>
