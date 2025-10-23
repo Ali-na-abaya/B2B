@@ -101,14 +101,14 @@
     <section class="categories">
       <h2>Выбирайте по категориям</h2>
       <div class="category-list">
-        <NuxtLink to="/catalog#fashion" class="category">
+        <NuxtLink :to="{ name: 'clientCatalogPage', hash: '#fashion' }" class="category">
           <span>Мода и красота</span>
         </NuxtLink>
-        <NuxtLink to="/catalog#home" class="cloth category">
+        <NuxtLink :to="{ name: 'clientCatalogPage', hash: '#home' }" class="cloth category">
           <span>Для дома</span>
         </NuxtLink>
 
-        <NuxtLink to="/catalog#food" class="furnit category">
+        <NuxtLink :to="{ name: 'clientCatalogPage', hash: '#food' }" class="furnit category">
           <span>Еда, табачная и алкогольная продукция</span>
         </NuxtLink>
 
@@ -125,7 +125,7 @@
           <NuxtLink
             v-for="(cat, index) in extraCategories"
             :key="index"
-            :to="`/catalog#${cat.slug}`"
+            :to="{ name: 'clientCatalogPage', hash: `#${cat.slug}` }"
             class="category extra-category"
             :style="{ backgroundImage: `url(${cat.image})` }"
           >
