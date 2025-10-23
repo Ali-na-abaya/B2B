@@ -16,21 +16,21 @@
           Dashboard
         </NuxtLink>
 
-        <NuxtLink :to="{ name: 'categoriesPage' }" class="nav-item ">
+        <NuxtLink :to="{ name: 'categoriesPage' }" class="nav-item active">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
           </svg>
           Categories
         </NuxtLink>
 
-        <NuxtLink :to="{ name: 'SuppliersPage' }" class="nav-item">
+        <NuxtLink :to="{ name: 'suppliersPage' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M17 20h-2c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10zM19 12h2c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2h-2v-10zM9 12H7c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h2v10zM7 20H5c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10z"/>
           </svg>
           Suppliers
         </NuxtLink>
 
-        <NuxtLink :to="{ name: 'ReportsPage' }" class="nav-item">
+        <NuxtLink :to="{ name: 'reportsPage' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9M9 9M9 9l6 6m6-6a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2z"/>
           </svg>
@@ -127,8 +127,11 @@ const logout = () => {
   margin-bottom: 8px;
 }
 
-
 .nav-item:hover {
+  background: #2d2d3a;
+}
+
+.nav-item.active {
   background: #f5a623;
   color: #1e2230;
   font-weight: bold;
