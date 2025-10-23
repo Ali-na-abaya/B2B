@@ -23,7 +23,7 @@
           Categories
         </NuxtLink>
 
-        <NuxtLink :to="{ name: 'SuppliersPage' }" class="nav-item">
+        <NuxtLink :to="{ name: 'suppliersPage' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M17 20h-2c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10zM19 12h2c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2h-2v-10zM9 12H7c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h2v10zM7 20H5c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10z"/>
           </svg>
@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-definePageMeta({name:"dashboardPage"})
+definePageMeta({name:"suppliersPage"})
 import { navigateTo } from '#imports'
 import CategoryTable from '~/pages/admin/categotable.vue'
 
