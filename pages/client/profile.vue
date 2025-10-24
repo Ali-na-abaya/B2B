@@ -100,10 +100,40 @@
   </footer>
 </template>
 
-<script setup>
-definePageMeta({name:"clientProfilePage"})
-import { ref, computed } from 'vue'
 
+<script setup>
+definePageMeta({ name: "clientProfilePage" })
+import { ref, onMounted } from 'vue'
+
+
+const userData = ref(null)
+const loading = ref(true)
+const error = ref(null)
+
+const fetchProfile = async () => {
+  try {
+    const token = localStorage.getItem('token')
+    const res = await fetch('https://b2b-f014.onrender.com/profile', {
+      headers: {
+        'Authorization': `Bearer ${token}`  
+      }
+    })
+
+    if (!res.ok) throw new Error('Failed to fetch profile')
+
+    userData.value = await res.json()
+  } catch (err) {
+    error.value = err.message
+  } finally {
+    loading.value = false
+  }
+}
+
+
+
+onMounted(() => {
+  fetchProfile()
+})
 
 
 const menuOpen = ref(false)
@@ -111,6 +141,7 @@ const toggleMenu = () => {
   menuOpen.value = !menuOpen.value
 }
 </script>
+
 
 <style scoped>
 

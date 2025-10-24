@@ -52,19 +52,34 @@
 </template>
 
 <script setup>
-import { useAuth } from "~/composables/useAuth";
-const { login } = useAuth();
+import { ref } from 'vue'
+import { navigateTo } from '#app'
 
-const email = ref("");
-const password = ref("");
+const email = ref('')
+const password = ref('')
 
-const handleLogin = async () => {
+async function handleLogin() {
   try {
-    await login(email.value, password.value);
-    navigateTo("/");
+    const res = await fetch('https://b2b-f014.onrender.com/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value
+      })
+    })
+
+    const data = await res.json()
+
+    if (res.ok) {
+      localStorage.setItem('token', data.token)
+      navigateTo('/profile')
+    } else {
+      alert(data.message || 'Login failed')
+    }
   } catch (err) {
-    console.error(err);
-    alert("Login failed!");
+    console.error('Login error:', err)
+    alert('Network error')
   }
-};
+}
 </script>
