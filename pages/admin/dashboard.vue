@@ -131,6 +131,7 @@
             {{ showAllActivity ? "Hide" : "Show more" }}
           </button>
         </div>
+        
       </main>
     </div>
   </div>
@@ -373,7 +374,7 @@ const toggleActivity = () => {
   gap: 20px;
 }
 .stat-card {
-  background: white;
+  background: rgba(229, 229, 229, 1);
   flex: 1;
   padding: 18px;
   border-radius: 8px;
@@ -419,7 +420,6 @@ const toggleActivity = () => {
   font-weight: 500;
 }
 
-
 .recent-activity {
   margin-top: 35px;
   background: white;
@@ -427,27 +427,51 @@ const toggleActivity = () => {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .recent-activity h3 {
   margin-bottom: 15px;
   font-size: 32px;
   text-align: center;
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
   font-size: 15px;
 }
-th, td {
+
+
+thead th {
   text-align: left;
   padding: 12px;
-  border-bottom: 1px solid #eee;
-}
-th {
-  background: #f9fafb;
+  background: rgba(229, 229, 229, 1);
   font-weight: 600;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #eee; 
 }
 
-/* Show more button */
+thead th:last-child {
+  border-right: none;
+}
+
+
+tbody td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #eee; 
+  border-right: 1px solid #eee;  
+}
+
+tbody td:last-child {
+  border-right: none;
+}
+
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
 .show-more {
   background: transparent;
   border: none;
@@ -464,4 +488,5 @@ th {
   color: #333;
   text-decoration: underline;
 }
+
 </style>
