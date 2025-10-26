@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <aside class="sidebar">
+   <aside class="sidebar">
       <div class="sidebar-header">
         <h1>SupplierHub</h1>
       </div>
@@ -8,31 +8,43 @@
       <nav class="sidebar-nav">
         <NuxtLink :to="{ name: 'dashboard' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"/>
-            <path d="M14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"/>
-            <path d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z"/>
-            <path d="M14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+            <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" />
+            <path d="M14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z" />
+            <path d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z" />
+            <path d="M14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
           </svg>
           Dashboard
         </NuxtLink>
 
         <NuxtLink :to="{ name: 'category' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+            <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
           </svg>
           Categories
         </NuxtLink>
 
         <NuxtLink :to="{ name: 'suppliers' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M17 20h-2c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10zM19 12h2c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2h-2v-10zM9 12H7c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h2v10zM7 20H5c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10z"/>
+            <path
+              d="M17 20h-2c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10zM19 12h2c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2h-2v-10zM9 12H7c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h2v10zM7 20H5c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h2v10z"
+            />
           </svg>
           Suppliers
         </NuxtLink>
 
+        <NuxtLink :to="{ name: 'archive' }" class="nav-item active">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M5 8h14v8H5V8z" />
+            <path d="M12 4l-4 4h8l-4-4z" />
+          </svg>
+          Archived
+        </NuxtLink>
+
         <NuxtLink :to="{ name: 'reports' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9M9 9M9 9l6 6m6-6a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2z"/>
+            <path
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9M9 9M9 9l6 6m6-6a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2z"
+            />
           </svg>
           Reports
         </NuxtLink>
@@ -49,8 +61,11 @@
       </div>
     </aside>
 
+    <div class="overlay" @click="toggleSidebar"></div>
+
     <div class="main-content">
-      <header class="header">
+        <header class="header">
+          <button class="burger" @click="toggleSidebar">☰</button>
         <div class="header-right">
           <div class="avatar"></div>
         </div>
@@ -201,8 +216,16 @@ const toggleActivity = () => {
   showAllActivity.value = !showAllActivity.value
   visibleActivityCount.value = showAllActivity.value ? recentActivity.length : 5
 }
-</script>
 
+
+
+function toggleSidebar() {
+  const sidebar = document.querySelector(".sidebar");
+  const overlay = document.querySelector(".overlay");
+  sidebar.classList.toggle("active");
+  overlay.classList.toggle("active");
+}
+</script>
 
 <style scoped>
 .sidebar {
@@ -212,12 +235,13 @@ const toggleActivity = () => {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  transition: left 0.3s ease;
 }
 
 .sidebar-header {
   padding: 21px;
   border-bottom: 1px solid #2d2d3a;
-  background-color:#f5a623;
+  background-color: #f5a623;
 }
 
 .sidebar-header h1 {
@@ -242,10 +266,6 @@ const toggleActivity = () => {
   transition: background 0.2s;
   margin-bottom: 8px;
 }
-
-/* .nav-item:hover {
-  background: #2d2d3a;
-} */
 
 .nav-item:hover {
   background: #f5a623;
@@ -290,19 +310,11 @@ const toggleActivity = () => {
   overflow: hidden;
 }
 
-.header {
-  background: #f5a623;
-  color: white;
-  padding: 16px 24px;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 136px;
 }
 
 .lang-selector {
@@ -357,22 +369,17 @@ const toggleActivity = () => {
   overflow-y: auto;
 }
 
-
-
-
-
-
 .main-content2 {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
 }
 
-
 .stats {
   display: flex;
   gap: 20px;
 }
+
 .stat-card {
   background: rgba(229, 229, 229, 1);
   flex: 1;
@@ -381,6 +388,7 @@ const toggleActivity = () => {
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .stat-card h3 {
   margin-bottom: 10px;
   font-size: 15px;
@@ -392,6 +400,7 @@ const toggleActivity = () => {
   gap: 20px;
   margin-top: 25px;
 }
+
 .new-box {
   flex: 1;
   background: white;
@@ -399,23 +408,27 @@ const toggleActivity = () => {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .new-box ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 .company-item {
   display: flex;
   align-items: center;
   gap: 10px;
   margin: 10px 0;
 }
+
 .circle {
   width: 25px;
   height: 25px;
   border-radius: 50%;
   background: #f4a100;
 }
+
 .company-name {
   font-weight: 500;
 }
@@ -440,32 +453,29 @@ table {
   font-size: 15px;
 }
 
-
 thead th {
   text-align: left;
   padding: 12px;
   background: rgba(229, 229, 229, 1);
   font-weight: 600;
   border-bottom: 1px solid #ddd;
-  border-right: 1px solid #eee; 
+  border-right: 1px solid #eee;
 }
 
 thead th:last-child {
   border-right: none;
 }
 
-
 tbody td {
   text-align: left;
   padding: 12px;
-  border-bottom: 1px solid #eee; 
-  border-right: 1px solid #eee;  
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #eee;
 }
 
 tbody td:last-child {
   border-right: none;
 }
-
 
 tbody tr:last-child td {
   border-bottom: none;
@@ -488,5 +498,234 @@ tbody tr:last-child td {
   color: #333;
   text-decoration: underline;
 }
+
+.overlay {
+  display:none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 900;
+}
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.header {
+  background: #f5a623;
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.burger {
+  display: none;
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    transform: translateX(-100%);
+    z-index: 1000;
+  }
+  .sidebar.active {
+    transform: translateX(0);
+  }
+  .burger {
+    display: block;
+  }
+  .overlay{
+   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.5);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: flex-start;
+  z-index: 200;
+  }
+  .header {
+  background: #f5a623;
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 60px;
+    position: fixed;
+    height: 100vh;
+    z-index: 1000;
+  }
+
+  .sidebar-header h1 {
+    display: none;
+  }
+
+  .nav-item {
+    justify-content: center;
+    padding: 10px;
+    gap: 0;
+  }
+
+  .nav-item span {
+    display: none; 
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+
+
+
+  .header {
+    padding: 10px 14px;
+    justify-content: space-between;
+  }
+
+  .header-right {
+    gap: 8px;
+  }
+
+  .lang-selector {
+    font-size: 14px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .page-header h2 {
+    font-size: 18px;
+  }
+
+  .btn-add {
+    width: 100%;
+    justify-content: center;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .stat-card h3 {
+    font-size: 13px;
+  }
+
+  .new-section {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .recent-activity {
+    padding: 16px;
+  }
+
+  .recent-activity h3 {
+    font-size: 22px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody, tr, td {
+    display: block;
+    width: 100%;
+  }
+
+  tbody tr {
+    margin-bottom: 12px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 8px;
+  }
+
+  tbody td {
+    border: none;
+    text-align: left;
+    padding: 6px 0;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+    color: #444;
+  }
+}
+
+@media (max-width: 360px) {
+  .sidebar {
+    width: 55px;
+  }
+
+
+
+  .header {
+    padding: 8px 10px;
+  }
+
+  .page-header h2 {
+    font-size: 16px;
+  }
+
+  .btn-add {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .stat-card {
+    padding: 12px;
+  }
+
+  .recent-activity h3 {
+    font-size: 20px;
+  }
+
+  table {
+    font-size: 11px;
+  }
+}
+
 
 </style>

@@ -30,6 +30,14 @@
           Suppliers
         </NuxtLink>
 
+         <NuxtLink :to="{ name: 'archive' }" class="nav-item active">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M5 8h14v8H5V8z"/>
+            <path d="M12 4l-4 4h8l-4-4z"/>
+          </svg>
+          Archived
+        </NuxtLink>
+
         <NuxtLink :to="{ name: 'reports' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9M9 9M9 9l6 6m6-6a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2z"/>
