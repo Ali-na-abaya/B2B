@@ -33,7 +33,13 @@
                   </NuxtLink>
                 </li>
 
-                <li v-if="isAuthenticated">
+                <li v-if="isAdmin">
+                  <NuxtLink to="/profile">
+                    <i class="fa-solid fa-lock"></i> Profile
+                  </NuxtLink>
+                </li>
+
+                <!-- <li v-if="isAuthenticated">
                   <div class="profile-btn" @click="logout">
                     <i class="fa-solid fa-user-circle"></i>
                     {{ user?.email || "Profile" }}
@@ -47,7 +53,7 @@
                   <NuxtLink to="/register">
                     <i class="fa-solid fa-user-plus"></i> Register
                   </NuxtLink>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -59,8 +65,10 @@
         class="user-profile"
         @click="toggleProfileMenu"
       >
-        <div class="profile-circle">
-          <i class="fa-solid fa-user"></i>
+        <div class="profile-circle pr-10">
+          <NuxtLink to="/profile">
+            <i class="fa-solid fa-user"></i>
+          </NuxtLink>
         </div>
 
         <!-- <transition name="fade">
