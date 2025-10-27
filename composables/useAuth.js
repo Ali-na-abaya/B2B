@@ -26,12 +26,12 @@ export const useAuth = () => {
     }
   };
 
-  const register = async (email, password, phoneNumber) => {
+  const register = async (email, fullName, password, phoneNumber) => {
     try {
       const data = await $fetch("/auth/register", {
         baseURL: config.public.apiBase,
         method: "POST",
-        body: { email, password, phoneNumber },
+        body: { email, fullName, password, phoneNumber },
       });
 
       if (data?.accessToken) {

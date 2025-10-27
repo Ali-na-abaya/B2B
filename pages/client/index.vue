@@ -10,19 +10,19 @@
 
               <ul>
                 <li>
-                  <NuxtLink :to="{ name: 'homePage',}">
+                  <NuxtLink :to="{ name: 'homePage' }">
                     <i class="fa-solid fa-house"></i> Home
                   </NuxtLink>
                 </li>
 
                 <li>
-                  <NuxtLink :to="{ name: 'clientCatalogPage',}">
+                  <NuxtLink :to="{ name: 'clientCatalogPage' }">
                     <i class="fa-solid fa-bag-shopping"></i> Catalog
                   </NuxtLink>
                 </li>
 
                 <li>
-                  <NuxtLink :to="{ name: 'clientSuppliersPage',}">
+                  <NuxtLink :to="{ name: 'clientSuppliersPage' }">
                     <i class="fa-solid fa-industry"></i> Suppliers
                   </NuxtLink>
                 </li>
@@ -101,14 +101,23 @@
     <section class="categories">
       <h2>Выбирайте по категориям</h2>
       <div class="category-list">
-        <NuxtLink :to="{ name: 'clientCatalogPage', hash: '#fashion' }" class="category">
+        <NuxtLink
+          :to="{ name: 'clientCatalogPage', hash: '#fashion' }"
+          class="category"
+        >
           <span>Мода и красота</span>
         </NuxtLink>
-        <NuxtLink :to="{ name: 'clientCatalogPage', hash: '#home' }" class="cloth category">
+        <NuxtLink
+          :to="{ name: 'clientCatalogPage', hash: '#home' }"
+          class="cloth category"
+        >
           <span>Для дома</span>
         </NuxtLink>
 
-        <NuxtLink :to="{ name: 'clientCatalogPage', hash: '#food' }" class="furnit category">
+        <NuxtLink
+          :to="{ name: 'clientCatalogPage', hash: '#food' }"
+          class="furnit category"
+        >
           <span>Еда, табачная и алкогольная продукция</span>
         </NuxtLink>
 
@@ -220,7 +229,7 @@
 </template>
 
 <script setup>
-definePageMeta({name:"homePage"})
+definePageMeta({ name: "homePage" });
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useAuth } from "@/composables/useAuth";
 

@@ -21,6 +21,13 @@
           class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#14213D] transition"
           required
         />
+        <input
+          v-model="fullName"
+          type="text"
+          placeholder="Enter your full name"
+          class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#14213D] transition"
+          required
+        />
 
         <input
           v-model="password"
@@ -68,11 +75,13 @@ const { register, login, fetchUser } = useAuth();
 const email = ref("");
 const password = ref("");
 const phoneNumber = ref("");
+const fullName = ref("");
 
 const handleRegister = async () => {
   try {
     const result = await register(
       email.value,
+      fullName.value,
       password.value,
       phoneNumber.value
     );
@@ -81,14 +90,9 @@ const handleRegister = async () => {
       const { token } = result;
       const auth = useAuth();
       auth.token.value = token;
-      // await fetchUser();
-      // navigateTo("/login");
+
       return;
     }
-
-    // await login(email.value, password.value);
-    // await fetchUser();
-    // navigateTo("/login");
   } catch (err) {
     console.error("Registration failed:", err);
     alert("Registration failed!");
