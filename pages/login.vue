@@ -73,7 +73,7 @@ async function handleLogin() {
 
     if (res.ok) {
       localStorage.setItem('token', data.token)
-      navigateTo('/profile')
+      navigateTo('client/profile')
     } else {
       alert(data.message || 'Login failed')
     }
