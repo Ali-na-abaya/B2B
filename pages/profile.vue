@@ -1,5 +1,6 @@
 <template>
   <div class="profile-container">
+    <!-- Header -->
     <div class="profile-header">
       <h1 class="page-title">Profile</h1>
       <div class="burger-container">
@@ -36,7 +37,7 @@
       </div>
     </div>
 
-
+    <!-- Profile Info -->
     <div class="content-wrapper">
       <div class="card user-info-card">
         <div class="avatar"></div>
@@ -45,26 +46,33 @@
           <h2 v-else-if="error" class="user-name text-red-500">Error: {{ error }}</h2>
           <h2 v-else class="user-name">{{ userData.fullName || '—' }}</h2>
 
-          <p v-if="!loading && !error" class="user-email">E-mail: {{ userData.email || '—' }}</p>
-          <p v-if="!loading && !error" class="user-phone">Number: {{ userData.phoneNumber || '—' }}</p>
+          <p v-if="!loading && !error" class="user-email">
+            E-mail: {{ userData.email || '—' }}
+          </p>
+          <p v-if="!loading && !error" class="user-phone">
+            Number: {{ userData.phoneNumber || '—' }}
+          </p>
         </div>
       </div>
 
-    
       <div class="card payment-card">
         <h3 class="card-title">Добавьте компанию</h3>
         <button class="payment-logo" @click="openModal">Add</button>
       </div>
     </div>
 
-
-    <div class="card company-card">
+    <!-- Company Card — тек форма сақталған соң шығады -->
+    <div
+      v-if="savedCompany.name && savedCompany.spec && savedCompany.product"
+      class="card company-card"
+    >
       <h3 class="card-title">About company</h3>
-      <p><strong>Company name:</strong> {{ savedCompany.name || 'Adilet' }}</p>
-      <p><strong>Specification:</strong> {{ savedCompany.spec || 'Toys' }}</p>
-      <p><strong>Product:</strong> {{ savedCompany.product || 'Balls, dolls, cars' }}</p>
+      <p><strong>Company name:</strong> {{ savedCompany.name }}</p>
+      <p><strong>Specification:</strong> {{ savedCompany.spec }}</p>
+      <p><strong>Product:</strong> {{ savedCompany.product }}</p>
     </div>
 
+    <!-- Modal Form -->
     <div v-if="showModal" class="modal" @click.self="closeModal">
       <div class="modal-content">
         <span class="close" @click="closeModal">&times;</span>
@@ -79,22 +87,7 @@
       </div>
     </div>
 
-
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-left">
-          <span class="logo">SupplierHub</span>
-        </div>
-        <div class="footer-center">
-          <span class="copyright">© SupplierHub, All rights reserved</span>
-        </div>
-        <div class="footer-right">
-          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
-        </div>
-      </div>
-    </footer>
+   
   </div>
 </template>
 
@@ -119,9 +112,9 @@ const closeModal = () => (showModal.value = false)
 
 const handleSubmit = () => {
   savedCompany.value = {
-    name: companyName.value,
-    spec: specification.value,
-    product: productName.value,
+    name: companyName.value.trim(),
+    spec: specification.value.trim(),
+    product: productName.value.trim(),
   }
   closeModal()
 }
