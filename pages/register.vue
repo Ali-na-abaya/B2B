@@ -56,7 +56,7 @@
       <p class="text-center text-[#14213D] mt-6 font-medium">
         Already have an account?
         <NuxtLink
-          :to="{ name: 'clientLoginPage',}"
+          :to="{ name: 'clientRegisterPage',}"
           class="text-white decoration-[#14213D] hover:text-black transition"
         >
           Login
@@ -71,10 +71,8 @@ import { useAuth } from "~/composables/useAuth";
 definePageMeta({ name: "clientRegisterPage" })
 import { navigateTo } from "#app";
 
-if (result?.token) {
-  localStorage.setItem('token', result.token) 
-  await navigateTo({ name: 'clientProfilePage' })
-}
+const { register, login, fetchUser } = useAuth();
+
 const email = ref("");
 const password = ref("");
 const phoneNumber = ref("");
@@ -101,4 +99,4 @@ const handleRegister = async () => {
     alert("Registration failed!");
   }
 };
-</script>
+</script> 
