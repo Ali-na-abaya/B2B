@@ -1,6 +1,5 @@
 <template>
   <div class="profile-container">
-    <!-- Header -->
     <div class="profile-header">
       <h1 class="page-title">Profile</h1>
       <div class="burger-container">
@@ -37,9 +36,8 @@
       </div>
     </div>
 
-    <!-- Content -->
+
     <div class="content-wrapper">
-      <!-- Profile Card -->
       <div class="card user-info-card">
         <div class="avatar"></div>
         <div class="user-details">
@@ -52,14 +50,14 @@
         </div>
       </div>
 
-      <!-- Add Company Card -->
+    
       <div class="card payment-card">
         <h3 class="card-title">Добавьте компанию</h3>
         <button class="payment-logo" @click="openModal">Add</button>
       </div>
     </div>
 
-    <!-- Company Info -->
+
     <div class="card company-card">
       <h3 class="card-title">About company</h3>
       <p><strong>Company name:</strong> {{ savedCompany.name || 'Adilet' }}</p>
@@ -67,7 +65,6 @@
       <p><strong>Product:</strong> {{ savedCompany.product || 'Balls, dolls, cars' }}</p>
     </div>
 
-    <!-- Modal -->
     <div v-if="showModal" class="modal" @click.self="closeModal">
       <div class="modal-content">
         <span class="close" @click="closeModal">&times;</span>
@@ -82,7 +79,7 @@
       </div>
     </div>
 
-    <!-- Footer -->
+
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-left">
