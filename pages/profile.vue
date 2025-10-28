@@ -128,6 +128,7 @@
 <script setup>
 definePageMeta({ name: "clientProfilePage" });
 import { ref, onMounted } from "vue";
+import { useCookie, useRuntimeConfig } from "#app";
 
 const userData = ref({});
 const loading = ref(true);
@@ -155,23 +156,34 @@ const handleSubmit = () => {
 
 const fetchProfile = async () => {
   try {
-    const token = localStorage.getItem("token");
-    if (!token) throw new Error("No token found");
+    const config = useRuntimeConfig();
+    const token = useCookie("token").value;
 
-    const res = await fetch("https://b2b-f014.onrender.com/api/profile", {
-      headers: { Authorization: `Bearer ${token}` },
+    if (!token) throw new Error("No token found in cookies");
+
+    const res = await fetch(`${config.public.apiBase}profile`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
 
-    if (!res.ok) throw new Error("Failed to fetch profile");
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Profile request failed (${res.status}): ${text}`);
+    }
+
     userData.value = await res.json();
   } catch (err) {
     error.value = err.message;
+    console.error("fetchProfile error:", err);
   } finally {
     loading.value = false;
   }
 };
 
-onMounted(() => setTimeout(fetchProfile, 300));
+onMounted(fetchProfile);
 </script>
 
 <style scoped>

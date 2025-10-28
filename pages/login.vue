@@ -50,36 +50,45 @@
     </div>
   </div>
 </template>
-
 <script setup>
-import { ref } from 'vue'
-import { navigateTo } from '#app'
+import { ref } from "vue";
+import { useCookie, navigateTo } from "#app";
 
-const email = ref('')
-const password = ref('')
+const email = ref("");
+const password = ref("");
+
+const token = useCookie("token");
 
 async function handleLogin() {
   try {
-    const res = await fetch('https://b2b-f014.onrender.com/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://b2b-f014.onrender.com/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: email.value,
-        password: password.value
-      })
-    })
+        password: password.value,
+      }),
+    });
 
-    const data = await res.json()
+    const data = await res.json();
 
-   if (res.ok) {
-  localStorage.setItem('token', data.token) 
-  await navigateTo('/client/profile')
+    if (res.ok) {
+      const accessToken = data.accessToken || data.token;
+
+      if (!accessToken) {
+        alert("No token received from server");
+        return;
+      }
+
+      token.value = accessToken;
+
+      await navigateTo("/profile");
     } else {
-      alert(data.message || 'Login failed')
+      alert(data.message || "Login failed");
     }
   } catch (err) {
-    console.error('Login error:', err)
-    alert('Network error')
+    console.error("Login error:", err);
+    alert("Network error");
   }
 }
 </script>

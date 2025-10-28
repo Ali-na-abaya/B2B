@@ -14,11 +14,18 @@ export const useAuth = () => {
         method: "POST",
         body: { email, password },
       });
-      if (data?.token) {
-        const decoded = jwtDecode(data.token);
-        token.value = data.token;
+
+      const authToken = data?.token || data?.accessToken;
+
+      if (authToken) {
+        token.value = authToken;
+        const decoded = jwtDecode(authToken);
         user.value = decoded;
+        console.log(" User logged in:", decoded);
+      } else {
+        console.warn("Not token", data);
       }
+
       return data;
     } catch (err) {
       console.error("login error:", err);
@@ -34,11 +41,16 @@ export const useAuth = () => {
         body: { email, fullName, password, phoneNumber },
       });
 
-      if (data?.accessToken) {
-        token.value = data.accessToken;
-        const decoded = jwtDecode(data.accessToken);
+      const authToken = data?.token || data?.accessToken;
+
+      if (authToken) {
+        token.value = authToken;
+        const decoded = jwtDecode(authToken);
         user.value = decoded;
+        console.log(" User registered:", decoded);
         navigateTo("/");
+      } else {
+        console.warn(" Not token", data);
       }
 
       return data;
@@ -61,6 +73,7 @@ export const useAuth = () => {
     if (token.value) {
       try {
         user.value = jwtDecode(token.value);
+        console.log(" Restored user from cookie:", user.value);
       } catch {
         token.value = null;
       }
