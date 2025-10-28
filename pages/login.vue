@@ -71,9 +71,9 @@ async function handleLogin() {
 
     const data = await res.json()
 
-    if (res.ok) {
-      localStorage.setItem('token', data.token)
-      navigateTo('client/profile')
+   if (res.ok) {
+  localStorage.setItem('token', data.token) 
+  await navigateTo('/client/profile')
     } else {
       alert(data.message || 'Login failed')
     }
