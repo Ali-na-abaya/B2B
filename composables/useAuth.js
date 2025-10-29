@@ -9,7 +9,7 @@ export const useAuth = () => {
 
   const login = async (email, password) => {
     try {
-      const data = await $fetch("/auth/login", {
+      const data = await $fetch("api/auth/login", {
         baseURL: config.public.apiBase,
         method: "POST",
         body: { email, password },
@@ -41,7 +41,7 @@ export const useAuth = () => {
 
   const register = async (email, fullName, password, phoneNumber) => {
     try {
-      const data = await $fetch("/auth/register", {
+      const data = await $fetch("api//auth/register", {
         baseURL: config.public.apiBase,
         method: "POST",
         body: { email, fullName, password, phoneNumber },
