@@ -74,7 +74,8 @@
 import { useAuth } from "~/composables/useAuth";
 definePageMeta({ name: "clientRegisterPage" });
 import { navigateTo } from "#app";
-
+import { ref } from "vue";
+const errorMessage = ref("");
 const { register, login, fetchUser } = useAuth();
 
 const email = ref("");
