@@ -81,6 +81,11 @@ async function handleLogin() {
       }
 
       token.value = accessToken;
+      if (decoded.role === "admin") {
+        await navigateTo("/admin/dashboard");
+      } else {
+        await navigateTo("/profile");
+      }
 
       await navigateTo("/profile");
     } else {
