@@ -7,8 +7,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: [
-    "~/assets/css/tailwind.css",
-    "@fortawesome/fontawesome-free/css/all.min.css",
-  ],
+  compatibilityDate: "2025-10-21",
+  css: ["~/assets/css/tailwind.css"],
+  css: ["@fortawesome/fontawesome-free/css/all.min.css"],
 });

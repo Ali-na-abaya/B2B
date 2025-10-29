@@ -10,19 +10,19 @@
 
               <ul>
                 <li>
-                  <NuxtLink to="/">
+                  <NuxtLink :to="{ name: 'homePage' }">
                     <i class="fa-solid fa-house"></i> Home
                   </NuxtLink>
                 </li>
 
                 <li>
-                  <NuxtLink to="/catalog">
+                  <NuxtLink :to="{ name: 'clientCatalogPage' }">
                     <i class="fa-solid fa-bag-shopping"></i> Catalog
                   </NuxtLink>
                 </li>
 
                 <li>
-                  <NuxtLink to="/suppliers">
+                  <NuxtLink :to="{ name: 'clientSuppliersPage' }">
                     <i class="fa-solid fa-industry"></i> Suppliers
                   </NuxtLink>
                 </li>
@@ -33,9 +33,15 @@
                   </NuxtLink>
                 </li>
 
-                <li v-if="isAuthenticated">
+                <li v-if="isAdmin">
+                  <NuxtLink to="/profile">
+                    <i class="fa-solid fa-lock"></i> Profile
+                  </NuxtLink>
+                </li>
+
+                <!-- <li v-if="isAuthenticated">
                   <div class="profile-btn" @click="logout">
-                    <i class="fa-solid fa-user-circle profle"></i>
+                    <i class="fa-solid fa-user-circle"></i>
                     {{ user?.email || "Profile" }}
                   </div>
                 </li>
@@ -47,7 +53,7 @@
                   <NuxtLink to="/register">
                     <i class="fa-solid fa-user-plus"></i> Register
                   </NuxtLink>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -59,8 +65,10 @@
         class="user-profile"
         @click="toggleProfileMenu"
       >
-        <div class="profile-circle">
-          <i class="fa-solid fa-user"></i>
+        <div class="profile-circle pr-10">
+          <NuxtLink to="/profile">
+            <i class="fa-solid fa-user"></i>
+          </NuxtLink>
         </div>
 
         <!-- <transition name="fade">
@@ -101,14 +109,23 @@
     <section class="categories">
       <h2>Выбирайте по категориям</h2>
       <div class="category-list">
-        <NuxtLink to="/catalog#fashion" class="category">
+        <NuxtLink
+          :to="{ name: 'clientCatalogPage', hash: '#fashion' }"
+          class="category"
+        >
           <span>Мода и красота</span>
         </NuxtLink>
-        <NuxtLink to="/catalog#home" class="cloth category">
+        <NuxtLink
+          :to="{ name: 'clientCatalogPage', hash: '#home' }"
+          class="cloth category"
+        >
           <span>Для дома</span>
         </NuxtLink>
 
-        <NuxtLink to="/catalog#food" class="furnit category">
+        <NuxtLink
+          :to="{ name: 'clientCatalogPage', hash: '#food' }"
+          class="furnit category"
+        >
           <span>Еда, табачная и алкогольная продукция</span>
         </NuxtLink>
 
@@ -125,7 +142,7 @@
           <NuxtLink
             v-for="(cat, index) in extraCategories"
             :key="index"
-            :to="`/catalog#${cat.slug}`"
+            :to="{ name: 'clientCatalogPage', hash: `#${cat.slug}` }"
             class="category extra-category"
             :style="{ backgroundImage: `url(${cat.image})` }"
           >
@@ -218,16 +235,118 @@
     </footer>
   </div>
 </template>
-<script setup>
-import { onMounted } from "vue";
-import { useRouter } from "#app";
 
-const router = useRouter();
+<script setup>
+definePageMeta({ name: "homePage" });
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import { useAuth } from "@/composables/useAuth";
+
+const { user, isAuthenticated, isAdmin, logout } = useAuth();
+const showProfileMenu = ref(false);
+
+const toggleProfileMenu = () => {
+  showProfileMenu.value = !showProfileMenu.value;
+};
+
+const closeProfileMenu = (event) => {
+  if (!event.target.closest(".user-profile")) {
+    showProfileMenu.value = false;
+  }
+};
+
+const menuOpen = ref(false);
+const toggleMenu = () => (menuOpen.value = !menuOpen.value);
+
+const goToProfile = () => {
+  navigateTo("/profile");
+  showProfileMenu.value = false;
+};
+
+const goToSettings = () => {
+  navigateTo("/settings");
+  showProfileMenu.value = false;
+};
+
+const showMore = ref(false);
+const extraCategories = [
+  {
+    name: "Компьютеры, телефония, канцтовары",
+    image: "/images/good.jpeg",
+    slug: "computers",
+  },
+  {
+    name: "Детские товары, развлечения, хобби",
+    image: "/images/toys.jpeg",
+    slug: "kids",
+  },
+  { name: "Автозапчасти, техника", image: "/images/teh.jpeg", slug: "auto" },
+  { name: "Медицинские товары", image: "/images/medi.jpeg", slug: "medical" },
+  {
+    name: "Промышленность, строительство",
+    image: "/images/str.jpeg",
+    slug: "industry",
+  },
+];
+
+const cardWidth = 285;
+const products = [
+  {
+    name: "Chair",
+    price: "$47.50",
+    image: "https://i.ibb.co/tQKHLmQ/chair.png",
+  },
+  {
+    name: "Headphone",
+    price: "$47.50",
+    image: "https://i.ibb.co/3CMK5SK/headphones.png",
+  },
+  {
+    name: "Superstar",
+    price: "$80.15",
+    image: "https://i.ibb.co/3vJbMLR/shoes.png",
+  },
+  {
+    name: "Perfume",
+    price: "$64.75",
+    image: "https://i.ibb.co/WfZt6cz/perfume.png",
+  },
+  {
+    name: "Watch",
+    price: "$92.00",
+    image: "https://i.ibb.co/YX9W7nX/watch.png",
+  },
+  {
+    name: "Sunglasses",
+    price: "$35.99",
+    image: "https://i.ibb.co/z78NbQJ/sunglasses.png",
+  },
+];
+
+const visibleProducts = computed(() => [
+  ...products.slice(-4),
+  ...products,
+  ...products.slice(0, 4),
+]);
+
+const activeIndex = ref(4);
+let interval;
+const autoSlide = () => {
+  activeIndex.value++;
+  if (activeIndex.value >= products.length + 4) {
+    setTimeout(() => {
+      activeIndex.value = 4;
+    }, 700);
+  }
+};
 
 onMounted(() => {
-  router.replace("/admin/category");
+  interval = setInterval(autoSlide, 3000);
+  document.addEventListener("click", closeProfileMenu);
+});
 
-  router.replace("/client");
+onUnmounted(() => {
+  clearInterval(interval);
+  document.removeEventListener("click", closeProfileMenu);
 });
 </script>
 
@@ -292,11 +411,6 @@ onMounted(() => {
   text-align: right;
   padding: 40px;
   padding-top: 100px;
-}
-.profle {
-  border: 2px;
-  border-radius: 100%;
-  border-color: #fff;
 }
 .overlay {
   position: absolute;

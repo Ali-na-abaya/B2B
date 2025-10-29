@@ -15,11 +15,21 @@ export const useAuth = () => {
         body: { email, password },
       });
 
-      if (data?.accessToken) {
-        token.value = data.accessToken;
-        const decoded = jwtDecode(data.accessToken);
+      const authToken = data?.token || data?.accessToken;
+
+      if (authToken) {
+        token.value = authToken;
+        const decoded = jwtDecode(authToken);
         user.value = decoded;
-        navigateTo("/");
+        console.log("User logged in:", decoded);
+
+        if (decoded.role === "admin") {
+          navigateTo("/admin/dashboard");
+        } else {
+          navigateTo("/");
+        }
+      } else {
+        console.warn("No token found", data);
       }
 
       return data;
@@ -29,19 +39,24 @@ export const useAuth = () => {
     }
   };
 
-  const register = async (email, password, phoneNumber) => {
+  const register = async (email, fullName, password, phoneNumber) => {
     try {
       const data = await $fetch("/auth/register", {
         baseURL: config.public.apiBase,
         method: "POST",
-        body: { email, password, phoneNumber },
+        body: { email, fullName, password, phoneNumber },
       });
 
-      if (data?.accessToken) {
-        token.value = data.accessToken;
-        const decoded = jwtDecode(data.accessToken);
+      const authToken = data?.token || data?.accessToken;
+
+      if (authToken) {
+        token.value = authToken;
+        const decoded = jwtDecode(authToken);
         user.value = decoded;
+        console.log(" User registered:", decoded);
         navigateTo("/");
+      } else {
+        console.warn(" Not token", data);
       }
 
       return data;
@@ -59,6 +74,22 @@ export const useAuth = () => {
 
   const isAdmin = computed(() => user.value?.role === "admin");
   const isAuthenticated = computed(() => !!user.value);
+
+  onMounted(() => {
+    if (token.value) {
+      try {
+        user.value = jwtDecode(token.value);
+        console.log(" Restored user from cookie:", user.value);
+        if (user.value.role === "admin") {
+          navigateTo("/admin/dashboard");
+        } else {
+          navigateTo("/client");
+        }
+      } catch {
+        token.value = null;
+      }
+    }
+  });
 
   watchEffect(() => {
     if (token.value) {
