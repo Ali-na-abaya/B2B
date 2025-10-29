@@ -6,7 +6,7 @@
       </div>
 
       <nav class="sidebar-nav">
-        <NuxtLink :to="{ name: 'dashboard',}" class="nav-item">
+        <NuxtLink :to="{ name: 'dashboard' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"/>
             <path d="M14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"/>
@@ -16,7 +16,7 @@
           Dashboard
         </NuxtLink>
 
-        <NuxtLink :to="{ name: 'category' }" class="nav-item">
+        <NuxtLink :to="{ name: 'category' }" class="nav-item active">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
           </svg>
@@ -30,7 +30,7 @@
           Suppliers
         </NuxtLink>
 
-         <NuxtLink :to="{ name: 'archive' }" class="nav-item active">
+        <NuxtLink :to="{ name: 'archive' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M5 8h14v8H5V8z"/>
             <path d="M12 4l-4 4h8l-4-4z"/>
@@ -70,28 +70,168 @@
       </div>
 
       <div class="content-area">
-        <CategoryTable />
+        <div class="category-table">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(category, index) in categories" :key="category.id">
+                <td>#{{ index + 1 }}</td>
+                <td>
+                  <template v-if="editingId === category.id">
+                    <input
+                      v-model="editingName"
+                      @keyup.enter="saveEdit(category.id)"
+                      @blur="cancelEdit"
+                      class="edit-input"
+                      autofocus
+                    />
+                  </template>
+                  <template v-else>
+                    {{ category.name }}
+                    <span class="arrow-badge">→</span>
+                  </template>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <button
+                      v-if="editingId !== category.id"
+                      class="icon-btn edit"
+                      @click="startEdit(category)"
+                      title="Edit"
+                    >
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                      </svg>
+                    </button>
+
+                    <button
+                      v-if="editingId === category.id"
+                      class="icon-btn save"
+                      @click="saveEdit(category.id)"
+                      title="Save"
+                    >
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 13l4 4L19 7" />
+                      </svg>
+                    </button>
+
+                    <button
+                      v-if="editingId === category.id"
+                      class="icon-btn cancel"
+                      @click="cancelEdit"
+                      title="Cancel"
+                    >
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                      </svg>
+                    </button>
+
+                    <button
+                      v-if="editingId !== category.id"
+                      class="icon-btn delete"
+                      @click="confirmDelete(category)"
+                      title="Delete"
+                    >
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-2.142L9 7M20 7H4m0 0v6m0 0v6m0 0V7"/>
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-definePageMeta({name:"category"})
-import { navigateTo } from '#imports'
-import CategoryTable from '~/pages/admin/categotable.vue'
+definePageMeta({ name: "category" })
+import { ref } from 'vue'
+import { navigateTo } from 'nuxt/app'
 
+const categories = ref([
+  { id: 1, name: 'Fashion and beauty' },
+  { id: 2, name: 'For home' },
+  { id: 3, name: 'Food, tobacco and alcohol products' },
+  { id: 4, name: 'Computers, telephony, office supplies' },
+  { id: 5, name: 'Industry, construction' },
+  { id: 6, name: 'Children’s goods, entertainment, hobbies' },
+  { id: 7, name: 'Auto parts, equipment' },
+  { id: 8, name: 'Medical products' },
+  { id: 9, name: 'Other' },
+])
+
+const editingId = ref(null)
+const editingName = ref('')
 
 const addCategory = () => {
-  navigateTo('/admin/add-category') 
+  const newId = Date.now()
+  const newCategory = { id: newId, name: 'New Category' }
+  categories.value.unshift(newCategory)
+  startEdit(newCategory)
+}
+
+function startEdit(category) {
+  editingId.value = category.id
+  editingName.value = category.name
+}
+
+function saveEdit(id) {
+  const trimmed = editingName.value.trim()
+
+  if (trimmed === '') {
+    if (confirm('Category name is empty. Delete it?')) {
+      categories.value = categories.value.filter(cat => cat.id !== id)
+    }
+    editingId.value = null
+    editingName.value = ''
+    return
+  }
+
+  const index = categories.value.findIndex(cat => cat.id === id)
+  if (index !== -1) {
+    categories.value[index] = { ...categories.value[index], name: trimmed }
+  }
+
+  editingId.value = null
+  editingName.value = ''
+}
+
+function cancelEdit() {
+  const wasNew = categories.value.some(cat => cat.id === editingId.value && cat.name === 'New Category')
+  if (wasNew) {
+    categories.value = categories.value.filter(cat => cat.id !== editingId.value)
+  }
+
+  editingId.value = null
+  editingName.value = ''
+}
+
+function confirmDelete(category) {
+  if (confirm(`Are you sure you want to delete "${category.name}"?`)) {
+    categories.value = categories.value.filter(cat => cat.id !== category.id)
+    if (editingId.value === category.id) {
+      editingId.value = null
+      editingName.value = ''
+    }
+  }
 }
 
 const addSupplier = () => {
-  navigateTo('/admin/add-supplier') 
+  navigateTo('/admin/add-supplier')
 }
 
 const logout = () => {
-
   navigateTo('/login', { replace: true })
 }
 </script>
@@ -109,7 +249,7 @@ const logout = () => {
 .sidebar-header {
   padding: 21px;
   border-bottom: 1px solid #2d2d3a;
-  background-color:#f5a623;
+  background-color: #f5a623;
 }
 
 .sidebar-header h1 {
@@ -135,10 +275,7 @@ const logout = () => {
   margin-bottom: 8px;
 }
 
-/* .nav-item:hover {
-  background: #2d2d3a;
-} */
-
+.nav-item.active,
 .nav-item:hover {
   background: #f5a623;
   color: #1e2230;
@@ -197,14 +334,6 @@ const logout = () => {
   gap: 16px;
 }
 
-.lang-selector {
-  background: transparent;
-  color: white;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-}
-
 .avatar {
   width: 40px;
   height: 40px;
@@ -247,5 +376,98 @@ const logout = () => {
   padding: 24px;
   flex: 1;
   overflow-y: auto;
+}
+
+.category-table {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  background: #f9f9f9;
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #666;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover {
+  background: #fafafa;
+}
+
+tbody td {
+  padding: 16px;
+  font-size: 14px;
+  color: #333;
+}
+
+.arrow-badge {
+  background: #f5a623;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.edit-input {
+  padding: 4px 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.icon-btn:hover {
+  background: #f0f0f0;
+}
+
+.icon-btn.edit:hover {
+  color: #007bff;
+}
+
+.icon-btn.delete:hover {
+  color: #dc3545;
+}
+
+.icon-btn.save:hover {
+  color: #28a745;
+}
+
+.icon-btn.cancel:hover {
+  color: #6c757d;
 }
 </style>
