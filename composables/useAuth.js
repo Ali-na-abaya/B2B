@@ -21,9 +21,15 @@ export const useAuth = () => {
         token.value = authToken;
         const decoded = jwtDecode(authToken);
         user.value = decoded;
-        console.log(" User logged in:", decoded);
+        console.log("User logged in:", decoded);
+
+        if (decoded.role === "admin") {
+          navigateTo("/admin/dashboard");
+        } else {
+          navigateTo("/");
+        }
       } else {
-        console.warn("Not token", data);
+        console.warn("No token found", data);
       }
 
       return data;
@@ -74,6 +80,11 @@ export const useAuth = () => {
       try {
         user.value = jwtDecode(token.value);
         console.log(" Restored user from cookie:", user.value);
+        if (user.value.role === "admin") {
+          navigateTo("/admin/dashboard");
+        } else {
+          navigateTo("/client");
+        }
       } catch {
         token.value = null;
       }

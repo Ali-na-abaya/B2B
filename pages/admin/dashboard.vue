@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-   <aside class="sidebar">
+    <aside class="sidebar">
       <div class="sidebar-header">
         <h1>SupplierHub</h1>
       </div>
@@ -8,17 +8,27 @@
       <nav class="sidebar-nav">
         <NuxtLink :to="{ name: 'dashboard' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" />
-            <path d="M14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z" />
-            <path d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z" />
-            <path d="M14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            <path
+              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"
+            />
+            <path
+              d="M14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"
+            />
+            <path
+              d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z"
+            />
+            <path
+              d="M14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+            />
           </svg>
           Dashboard
         </NuxtLink>
 
         <NuxtLink :to="{ name: 'category' }" class="nav-item">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+            <path
+              d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+            />
           </svg>
           Categories
         </NuxtLink>
@@ -64,15 +74,14 @@
     <div class="overlay" @click="toggleSidebar"></div>
 
     <div class="main-content">
-        <header class="header">
-          <button class="burger" @click="toggleSidebar">☰</button>
+      <header class="header">
+        <button class="burger" @click="toggleSidebar">☰</button>
         <div class="header-right">
           <div class="avatar"></div>
         </div>
       </header>
 
       <main class="main-content2">
-
         <div class="stats">
           <div class="stat-card">
             <h3>Total Categories</h3>
@@ -88,15 +97,22 @@
           </div>
         </div>
 
-
         <div class="new-section">
           <div class="new-box">
             <h3>New companies on the site</h3>
             <ul>
-              <li v-for="(company, i) in newCompanies.slice(0, visibleCompanyCount)" :key="i" class="company-item">
+              <li
+                v-for="(company, i) in newCompanies.slice(
+                  0,
+                  visibleCompanyCount
+                )"
+                :key="i"
+                class="company-item"
+              >
                 <div class="circle"></div>
                 <div>
-                  <span class="company-name">{{ company.name }}</span><br />
+                  <span class="company-name">{{ company.name }}</span
+                  ><br />
                   <small>{{ company.city }}</small>
                 </div>
               </li>
@@ -109,10 +125,18 @@
           <div class="new-box">
             <h3>New products on the site</h3>
             <ul>
-              <li v-for="(product, i) in newProducts.slice(0, visibleProductCount)" :key="i" class="company-item">
+              <li
+                v-for="(product, i) in newProducts.slice(
+                  0,
+                  visibleProductCount
+                )"
+                :key="i"
+                class="company-item"
+              >
                 <div class="circle"></div>
                 <div>
-                  <span class="company-name">{{ product.name }}</span><br />
+                  <span class="company-name">{{ product.name }}</span
+                  ><br />
                   <small>{{ product.supplier }}</small>
                 </div>
               </li>
@@ -122,7 +146,6 @@
             </button>
           </div>
         </div>
-
 
         <div class="recent-activity">
           <h3>Recent Activity</h3>
@@ -135,7 +158,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, i) in recentActivity.slice(0, visibleActivityCount)" :key="i">
+              <tr
+                v-for="(item, i) in recentActivity.slice(
+                  0,
+                  visibleActivityCount
+                )"
+                :key="i"
+              >
                 <td>{{ item.product }}</td>
                 <td>{{ item.supplier }}</td>
                 <td>{{ item.date }}</td>
@@ -146,37 +175,39 @@
             {{ showAllActivity ? "Hide" : "Show more" }}
           </button>
         </div>
-        
       </main>
     </div>
   </div>
 </template>
 <script setup>
-definePageMeta({ name: "dashboard" })
-import { navigateTo } from "#imports"
-import { ref } from "vue"
+import { navigateTo } from "#imports";
+import { ref } from "vue";
 
-const addSupplier = () => navigateTo("/admin/add-supplier")
-const logout = () => navigateTo("/login", { replace: true })
+definePageMeta({
+  name: "dashboard",
+  middleware: "admin",
+});
 
+const addSupplier = () => navigateTo("/admin/add-supplier");
+const logout = () => navigateTo("/login", { replace: true });
 
-const totalCategories = 39
-const totalSuppliers = 12
-const totalProducts = 300
+const totalCategories = 39;
+const totalSuppliers = 12;
+const totalProducts = 300;
 
 const originalNewCompanies = [
   { name: "ТОО Flario KZ", city: "Казахстан, Алматы" },
   { name: "ИП NovaTrade", city: "Казахстан, Астана" },
   { name: "ТОО Orion Ltd", city: "Казахстан, Шымкент" },
   { name: "ТОО QazPro", city: "Казахстан, Караганда" },
-]
+];
 
 const originalNewProducts = [
   { name: "Accessories", supplier: "ИП Овация" },
   { name: "Perfume", supplier: "BeautyStore" },
   { name: "Shoes", supplier: "Comfort Trade" },
   { name: "Watch", supplier: "TimeLine" },
-]
+];
 
 const originalRecentActivity = [
   { product: "Accessories", supplier: "ИП Овация", date: "03.10.2025" },
@@ -184,40 +215,36 @@ const originalRecentActivity = [
   { product: "Shoes", supplier: "Comfort Trade", date: "06.10.2025" },
   { product: "Watch", supplier: "TimeLine", date: "08.10.2025" },
   { product: "Glasses", supplier: "VisionPro", date: "10.10.2025" },
-]
+];
 
+const newCompanies = [...originalNewCompanies, ...originalNewCompanies];
+const newProducts = [...originalNewProducts, ...originalNewProducts];
+const recentActivity = [...originalRecentActivity, ...originalRecentActivity];
 
-const newCompanies = [...originalNewCompanies, ...originalNewCompanies]
-const newProducts = [...originalNewProducts, ...originalNewProducts]
-const recentActivity = [...originalRecentActivity, ...originalRecentActivity]
+const visibleCompanyCount = ref(4);
+const visibleProductCount = ref(4);
+const visibleActivityCount = ref(5);
 
-
-const visibleCompanyCount = ref(4)
-const visibleProductCount = ref(4)
-const visibleActivityCount = ref(5)
-
-
-const showAllCompanies = ref(false)
-const showAllProducts = ref(false)
-const showAllActivity = ref(false)
-
+const showAllCompanies = ref(false);
+const showAllProducts = ref(false);
+const showAllActivity = ref(false);
 
 const toggleCompanies = () => {
-  showAllCompanies.value = !showAllCompanies.value
-  visibleCompanyCount.value = showAllCompanies.value ? newCompanies.length : 4
-}
+  showAllCompanies.value = !showAllCompanies.value;
+  visibleCompanyCount.value = showAllCompanies.value ? newCompanies.length : 4;
+};
 
 const toggleProducts = () => {
-  showAllProducts.value = !showAllProducts.value
-  visibleProductCount.value = showAllProducts.value ? newProducts.length : 4
-}
+  showAllProducts.value = !showAllProducts.value;
+  visibleProductCount.value = showAllProducts.value ? newProducts.length : 4;
+};
 
 const toggleActivity = () => {
-  showAllActivity.value = !showAllActivity.value
-  visibleActivityCount.value = showAllActivity.value ? recentActivity.length : 5
-}
-
-
+  showAllActivity.value = !showAllActivity.value;
+  visibleActivityCount.value = showAllActivity.value
+    ? recentActivity.length
+    : 5;
+};
 
 function toggleSidebar() {
   const sidebar = document.querySelector(".sidebar");
@@ -309,7 +336,6 @@ function toggleSidebar() {
   flex-direction: column;
   overflow: hidden;
 }
-
 
 .header-right {
   display: flex;
@@ -481,7 +507,6 @@ tbody tr:last-child td {
   border-bottom: none;
 }
 
-
 .show-more {
   background: transparent;
   border: none;
@@ -500,7 +525,7 @@ tbody tr:last-child td {
 }
 
 .overlay {
-  display:none;
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -516,7 +541,6 @@ tbody tr:last-child td {
   opacity: 1;
   visibility: visible;
 }
-
 
 .header {
   background: #f5a623;
@@ -535,7 +559,6 @@ tbody tr:last-child td {
   cursor: pointer;
 }
 
-
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;
@@ -551,30 +574,30 @@ tbody tr:last-child td {
   .burger {
     display: block;
   }
-  .overlay{
-   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(30, 30, 30, 0.5);
-  backdrop-filter: blur(2px);
-  display: flex;
-  justify-content: flex-start;
-  z-index: 200;
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 30, 30, 0.5);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: flex-start;
+    z-index: 200;
   }
   .header {
-  background: #f5a623;
-  color: white;
-  padding: 16px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    background: #f5a623;
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 @media (max-width: 480px) {
-    .sidebar {
+  .sidebar {
     position: fixed;
     top: 0;
     left: 0;
@@ -588,36 +611,31 @@ tbody tr:last-child td {
   .burger {
     display: block;
   }
-  .overlay{
-   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(30, 30, 30, 0.5);
-  backdrop-filter: blur(2px);
-  display: flex;
-  justify-content: flex-start;
-  z-index: 200;
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 30, 30, 0.5);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: flex-start;
+    z-index: 200;
   }
   .header {
-  background: #f5a623;
-  color: white;
-  padding: 16px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
- 
+    background: #f5a623;
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   .nav-item {
-    
     padding: 10px;
     gap: 0;
   }
-
- 
 
   .header-right {
     gap: 8px;
@@ -680,7 +698,9 @@ tbody tr:last-child td {
     display: none;
   }
 
-  tbody, tr, td {
+  tbody,
+  tr,
+  td {
     display: block;
     width: 100%;
   }
@@ -708,7 +728,7 @@ tbody tr:last-child td {
 }
 
 @media (max-width: 360px) {
-    .sidebar {
+  .sidebar {
     position: fixed;
     top: 0;
     left: 0;
@@ -722,27 +742,26 @@ tbody tr:last-child td {
   .burger {
     display: block;
   }
-  .overlay{
-   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(30, 30, 30, 0.5);
-  backdrop-filter: blur(2px);
-  display: flex;
-  justify-content: flex-start;
-  z-index: 200;
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 30, 30, 0.5);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: flex-start;
+    z-index: 200;
   }
   .header {
-  background: #f5a623;
-  color: white;
-  padding: 16px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
+    background: #f5a623;
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   .page-header h2 {
     font-size: 16px;
